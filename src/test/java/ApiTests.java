@@ -14,10 +14,11 @@ public class ApiTests {
     @DisplayName("Get all permitted dashboard resources for specified project")
     public void getAllPermittedDashboard() {
 
-        Dashboard response= given(requestSpecification)
+        Dashboard response=
+                given(requestSpecification)
                 .contentType("application/json; charset=UTF-8")
                 .when()
-                .get("api/v1/"+getProjectName()+"/dashboard/14")
+                .get("api/v1/"+getProjectName()+"/dashboard")
                 .then()
                 .log().body()
                 .spec(resSpec)
