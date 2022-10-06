@@ -3,7 +3,7 @@ import models.Root;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static helpers.ConfigSetUp.*;
+import static helpers.ConfigSetUp.getProjectName;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static specs.RestAssuredSpec.requestSpecification;
