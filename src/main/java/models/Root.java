@@ -9,6 +9,5 @@ import java.util.ArrayList;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Root {
         public ArrayList<Content> content;
-        public Page page;
     }
 
