@@ -5,6 +5,9 @@ import config.ProjectConfig;
 import org.aeonbits.owner.ConfigFactory;
 
 public class ConfigSetUp {
+    private ConfigSetUp() {
+    }
+
     static ProjectConfig config = ConfigFactory.create(ProjectConfig.class, System.getProperties());
     static Credentials credentials = ConfigFactory.create(Credentials.class, System.getProperties());
 
@@ -15,7 +18,8 @@ public class ConfigSetUp {
     public static String getToken() {
         return credentials.token();
     }
-    public static String getProjectName(){
+
+    public static String getProjectName() {
         return config.projectName();
     }
 }
