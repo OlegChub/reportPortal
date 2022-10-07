@@ -8,8 +8,8 @@ public class ConfigSetUp {
     private ConfigSetUp() {
     }
 
-    static ProjectConfig config = ConfigFactory.create(ProjectConfig.class, System.getProperties());
-    static Credentials credentials = ConfigFactory.create(Credentials.class, System.getProperties());
+    private static ProjectConfig config = ConfigFactory.create(ProjectConfig.class, System.getProperties());
+    private static Credentials credentials = ConfigFactory.create(Credentials.class, System.getProperties());
 
     public static String getHost() {
         return config.host();
