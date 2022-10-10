@@ -1,0 +1,10 @@
+version: '3'
+services:
+  sonarqube:
+    container_name: sonarqubecontainer
+    image: sonarqube:latest
+    mem_limit: 3G
+    mem_reservation: 3G
+    ports:
+      - "9000:9000"
+      - "9092:9092"

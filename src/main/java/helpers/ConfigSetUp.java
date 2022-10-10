@@ -19,7 +19,4 @@ public class ConfigSetUp {
         return credentials.token();
     }
 
-    public static String getProjectName() {
-        return config.projectName();
-    }
 }
