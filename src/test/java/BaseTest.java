@@ -7,12 +7,12 @@ public class BaseTest {
     private static final Logger logger = LogManager.getLogger();
 
     @BeforeEach
-    protected void setUp() {
+    protected void start() {
         logger.info("Test is starting ...");
     }
 
     @AfterEach
-    protected void stopBrowser() {
+    protected void finish() {
         logger.info("Test has finished ...");
     }
 }

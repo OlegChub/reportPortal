@@ -4,7 +4,7 @@ import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ApiTests extends BaseTest{
     private ApiClient api = new ApiClient();
@@ -15,7 +15,7 @@ public class ApiTests extends BaseTest{
     @DisplayName("Get all permitted dashboard resources for specified project")
     @Owner("Oleg Chubryk")
     public void getAllPermittedDashboard() {
-        String dashboardNameActual = dashboards.getDashboardName();
-        assertEquals(dashboardNameExpected, dashboardNameActual);
+        assertTrue(dashboards.hasDashboardWithName(dashboards.getAllDashboardNames(),dashboardNameExpected));
+
     }
 }

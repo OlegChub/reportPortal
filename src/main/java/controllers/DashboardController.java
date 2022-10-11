@@ -4,7 +4,11 @@ import api.ApiClient;
 import api.request.GetDashboard;
 import helpers.ResponseHandler;
 import io.restassured.response.ValidatableResponse;
+import models.Content;
 import models.Dashboards;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardController {
     ApiClient client;
@@ -17,9 +21,19 @@ public class DashboardController {
         return client.execute(new GetDashboard());
     }
 
-    public String getDashboardName() {
+    public ArrayList<String> getAllDashboardNames() {
         Dashboards dashboards = ResponseHandler.getResponseAsClass(Dashboards.class,
                 getDashboards().extract().response());
-        return dashboards.getContent().get(0).getName();
+        List<Content> contentList = dashboards.getContent();
+        ArrayList<String> listWithDashboardNames = new ArrayList<>();
+        for (int i = 0; i < contentList.size(); i++) {
+            listWithDashboardNames.add(contentList.get(i).getName());
+        }
+        return listWithDashboardNames;
     }
+
+    public boolean hasDashboardWithName(List<String> listWithDashboardNames, String dashboardName) {
+        return listWithDashboardNames.contains(dashboardName);
+    }
+
 }
