@@ -26,14 +26,10 @@ public class DashboardController {
                 getDashboards().extract().response());
         List<Content> contentList = dashboards.getContent();
         ArrayList<String> listWithDashboardNames = new ArrayList<>();
-        for (int i = 0; i < contentList.size(); i++) {
-            listWithDashboardNames.add(contentList.get(i).getName());
+        for (Content dashboardItem : contentList) {
+            listWithDashboardNames.add(dashboardItem.getName());
         }
         return listWithDashboardNames;
-    }
-
-    public boolean hasDashboardWithName(List<String> listWithDashboardNames, String dashboardName) {
-        return listWithDashboardNames.contains(dashboardName);
     }
 
 }
