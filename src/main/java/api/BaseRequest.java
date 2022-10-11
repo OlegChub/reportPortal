@@ -10,30 +10,66 @@ import static helpers.ConfigSetUp.getHost;
 import static io.restassured.RestAssured.given;
 
 public class BaseRequest {
-    protected String method;
-    protected String url;
+    private String method;
+    private String url;
 
-    protected Map<String, String> headers = new HashMap<>();
-    protected Map<String, String> pathParams = new HashMap<>();
-    protected Map<String, String> queryParams = new HashMap<>();
+    private Map<String, String> headers = new HashMap<>();
+    private Map<String, String> pathParams = new HashMap<>();
+    private Map<String, String> queryParams = new HashMap<>();
 
-    protected Object body;
+    private Object body;
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Map<String, String> getHeaders() {
+        return headers;
+    }
+
+    public Map<String, String> getPathParams() {
+        return pathParams;
+    }
+
+    public Map<String, String> getQueryParams() {
+        return queryParams;
+    }
+
+    public Object getBody() {
+        return body;
+    }
+
+    public void setBody(Object body) {
+        this.body = body;
+    }
 
     public ValidatableResponse execute() {
         RequestSpecification request =
                 given().log().all()
                         .baseUri(getHost())
-                        .headers(headers)
-                        .pathParams(pathParams)
-                        .queryParams(queryParams);
+                        .headers(getHeaders())
+                        .pathParams(getPathParams())
+                        .queryParams(getQueryParams());
 
-        if (body != null) {
-            request.body(body);
+        if (getBody() != null) {
+            request.body(getBody());
         }
 
         return request
                 .when()
-                .request(method, url)
+                .request(getMethod(), getUrl())
                 .then().log().all();
     }
 }

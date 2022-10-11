@@ -14,11 +14,11 @@ public class ApiClient {
     }
 
     private void addDefaultHeaders(BaseRequest request) {
-        request.headers.put("Content-Type", "application/json");
+        request.getHeaders().put("Content-Type", "application/json");
     }
 
     private void authorize(BaseRequest request) {
-        request.headers.put(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", getToken()));
+        request.getHeaders().put(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", getToken()));
     }
 
 }

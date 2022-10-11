@@ -1,12 +1,13 @@
 package api.request;
 
 import api.BaseRequest;
+import org.apache.http.client.methods.HttpGet;
 
 import static helpers.RequestBuilder.buildUrl;
 
 public class GetDashboard extends BaseRequest {
     {
-        method = "GET";
-        url = buildUrl("/dashboard");
+        setMethod(HttpGet.METHOD_NAME);
+        setUrl(buildUrl("/dashboard"));
     }
 }
