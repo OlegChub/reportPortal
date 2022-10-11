@@ -2,11 +2,11 @@ package api.request;
 
 import api.BaseRequest;
 
-import static helpers.RequestBuilder.urlBuilder;
+import static helpers.RequestBuilder.buildUrl;
 
 public class GetDashboard extends BaseRequest {
     {
         method = "GET";
-        url = urlBuilder("/dashboard");
+        url = buildUrl("/dashboard");
     }
 }

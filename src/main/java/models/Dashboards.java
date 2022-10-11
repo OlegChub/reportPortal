@@ -8,6 +8,6 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Dashboards {
-        public List<Content> content;
-    }
+    public List<Content> content;
+}
 
