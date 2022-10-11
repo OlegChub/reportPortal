@@ -5,14 +5,6 @@ public class RequestBuilder {
     private final static String API_VERSION = "api/v1/";
 
     public static String buildUrl(String endpoint) {
-        return getApiVersion() + getProjectName() + endpoint;
-    }
-
-    public static String getApiVersion() {
-        return API_VERSION;
-    }
-
-    public static String getProjectName() {
-        return PROJECT_NAME;
+        return API_VERSION + PROJECT_NAME + endpoint;
     }
 }
