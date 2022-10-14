@@ -1,4 +1,3 @@
-import api.ApiClient;
 import controllers.DashboardController;
 import controllers.LaunchController;
 import io.qameta.allure.Owner;
@@ -13,7 +12,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ApiTests extends BaseTest {
-    private ApiClient api = new ApiClient();
     private DashboardController dashboards = new DashboardController(api);
     private LaunchController launch = new LaunchController(api);
     private String dashboardNameExpected = "DEMO DASHBOARD";

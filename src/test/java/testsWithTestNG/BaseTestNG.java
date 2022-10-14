@@ -1,34 +1,33 @@
+package testsWithTestNG;
+
 import api.ApiClient;
 import exeptions.FailedToLoginException;
 import helpers.UserTokenGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 
-@Execution(ExecutionMode.CONCURRENT)
-public class BaseTest {
+public class BaseTestNG {
     private static final Logger logger = LogManager.getLogger();
     public static ApiClient api = new ApiClient();
     private static UserTokenGenerator userTokenGenerator = new UserTokenGenerator(api);
 
-    @BeforeAll
+    @BeforeClass
     protected static void setAccessToken() throws FailedToLoginException {
         logger.info("Setting token ...");
         userTokenGenerator.setToken();
         logger.info("Token has been set successfully");
     }
 
-    @BeforeEach
+    @BeforeMethod
     protected void start() {
         logger.info("Test is starting ...");
     }
 
-    @AfterEach
+    @AfterMethod
     protected void finish() {
-        logger.info("Test is finished");
+        logger.info("Test has finished ...");
     }
 }
