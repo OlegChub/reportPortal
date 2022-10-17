@@ -56,14 +56,14 @@ public class LaunchController {
         return -1;
     }
 
-    public int getLaunchDefectsInfoParameter(String parameterName2) {
+    public int getLaunchDefectsInfoParameter(String parameterName) {
         LaunchDefects launchDefects = getLaunchDefectsInfo();
 
-        if (parameterName2.equals("productBug")) {
+        if (parameterName.equals("productBug")) {
             return launchDefects.getProductBug().getTotal();
-        } else if (parameterName2.equals("toInvestigate")) {
+        } else if (parameterName.equals("toInvestigate")) {
             return launchDefects.getToInvestigate().getTotal();
-        } else if (parameterName2.equals("automationBug")) {
+        } else if (parameterName.equals("automationBug")) {
             return launchDefects.getAutomationBug().getTotal();
         }
 
