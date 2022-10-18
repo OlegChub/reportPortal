@@ -116,11 +116,11 @@
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
                     <!--  Source for TestNG running     -->
-<!--                    <suiteXmlFiles>-->
-<!--                        <suiteXmlFile>-->
-<!--                            src\test\resources\testng.xml-->
-<!--                        </suiteXmlFile>-->
-<!--                    </suiteXmlFiles>-->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>
+                            src\test\resources\testng.xml
+                        </suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
                 <dependencies>
                     <dependency>
