@@ -1,6 +1,5 @@
 package testsWithTestNG;
 
-import api.ApiClient;
 import controllers.DashboardController;
 import controllers.LaunchController;
 import org.testng.annotations.Test;
@@ -12,7 +11,6 @@ import static org.testng.Assert.assertEquals;
 
 
 public class ApiTestsNG extends BaseTestNG {
-    private ApiClient api = new ApiClient();
     private DashboardController dashboards = new DashboardController(api);
     private LaunchController launch = new LaunchController(api);
     private String dashboardNameExpected = "DEMO DASHBOARD";

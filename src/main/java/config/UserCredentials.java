@@ -7,6 +7,9 @@ import org.aeonbits.owner.Config;
         "system:properties",
         "classpath:config/credentials.properties"
 })
-public interface Credentials extends Config {
-    String token();
+public interface UserCredentials extends Config {
+     String grantType();
+     String userName();
+     String password();
+     String authorizationType();
 }
