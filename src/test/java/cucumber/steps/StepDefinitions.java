@@ -41,8 +41,6 @@ public class StepDefinitions {
     @When("user sees that parameter {string} has value {int}")
     public void userSeesThatParameterHasValue(String parameterName, int expectedValue) {
         assertEquals(expectedValue, launch.getLaunchDefectsInfoParameter(parameterName));
-        System.out.printf("parameterName is " + parameterName);
-        System.out.println(" - Value is " + expectedValue);
     }
 
 }
