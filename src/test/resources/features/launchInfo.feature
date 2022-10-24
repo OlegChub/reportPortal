@@ -1,3 +1,4 @@
+@api
 Feature: Exact launch info checking
 
   Background: User is Logged In
