@@ -10,24 +10,24 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Hooks {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     public static ApiClient api = new ApiClient();
     private static UserTokenGenerator userToken = new UserTokenGenerator(api);
 
     @BeforeAll
     public static void setAccessToken() throws FailedToLoginException {
-        logger.info("Setting token ...");
+        LOGGER.info("Setting token ...");
         userToken.setToken();
-        logger.info("Token has been set successfully");
+        LOGGER.info("Token has been set successfully");
     }
 
     @Before
     public void start() {
-        logger.info("Test is starting ...");
+        LOGGER.info("Test is starting ...");
     }
 
     @After
     public void finish() {
-        logger.info("Test is finished");
+        LOGGER.info("Test is finished");
     }
 }

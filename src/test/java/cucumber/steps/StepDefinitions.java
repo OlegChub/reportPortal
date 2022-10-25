@@ -12,14 +12,13 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public class StepDefinitions {
     private LaunchController launch = new LaunchController(Hooks.api);
     private DashboardController dashboards = new DashboardController(Hooks.api);
     private ArrayList<String> listWithDashboardNames;
 
-    @When("use is logged in")
-    public void useIsLoggedIn() {
+    @When("user is logged in")
+    public void checkUserIsLoggedIn() {
         assertNotNull(getToken(), "Authorization failed");
     }
 
@@ -29,7 +28,7 @@ public class StepDefinitions {
     }
 
     @When("user sees dashboard with {string} name")
-    public void getDashboardNameFromList(String dashboardName) {
+    public void checkDashboardNameIsInList(String dashboardName) {
         assertThat(listWithDashboardNames, hasItem(dashboardName));
     }
 
@@ -39,7 +38,7 @@ public class StepDefinitions {
     }
 
     @When("user sees that parameter {string} has value {int}")
-    public void userSeesThatParameterHasValue(String parameterName, int expectedValue) {
+    public void checkParameterHasValue(String parameterName, int expectedValue) {
         assertEquals(expectedValue, launch.getLaunchDefectsInfoParameter(parameterName));
     }
 

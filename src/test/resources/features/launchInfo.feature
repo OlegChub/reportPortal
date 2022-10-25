@@ -2,12 +2,7 @@
 Feature: Exact launch info checking
 
   Background: User is Logged In
-    Given use is logged in
-
-  Scenario: Get dashboard name from the project
-    When user makes request to get all permitted dashboard resources for the project
-    Then user sees dashboard with "DEMO DASHBOARD" name
-
+    Given user is logged in
 
   Scenario Outline: Check exact launch defects info
     When user makes request to get info of launch with id 3
