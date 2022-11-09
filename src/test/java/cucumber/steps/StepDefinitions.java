@@ -1,20 +1,22 @@
 package cucumber.steps;
 
+import api.ApiClient;
 import controllers.DashboardController;
 import controllers.LaunchController;
 import io.cucumber.java.en.When;
 
 import java.util.ArrayList;
 
-import static helpers.UserTokenGenerator.getToken;
+import static helpers.UserLogin.getToken;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StepDefinitions {
-    private LaunchController launch = new LaunchController(Hooks.api);
-    private DashboardController dashboards = new DashboardController(Hooks.api);
+    private ApiClient api = new ApiClient();
+    private LaunchController launch = new LaunchController(api);
+    private DashboardController dashboards = new DashboardController(api);
     private ArrayList<String> listWithDashboardNames;
 
     @When("user is logged in")

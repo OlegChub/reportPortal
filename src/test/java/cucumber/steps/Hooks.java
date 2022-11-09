@@ -2,7 +2,7 @@ package cucumber.steps;
 
 import api.ApiClient;
 import exeptions.FailedToLoginException;
-import helpers.UserTokenGenerator;
+import helpers.UserLogin;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.BeforeAll;
@@ -11,13 +11,13 @@ import org.apache.logging.log4j.Logger;
 
 public class Hooks {
     private static final Logger LOGGER = LogManager.getLogger();
-    public static ApiClient api = new ApiClient();
-    private static UserTokenGenerator userToken = new UserTokenGenerator(api);
+    private static ApiClient api = new ApiClient();
+    private static UserLogin loginAsUser = new UserLogin(api);
 
     @BeforeAll
     public static void setAccessToken() throws FailedToLoginException {
         LOGGER.info("Setting token ...");
-        userToken.setToken();
+        loginAsUser.login();
         LOGGER.info("Token has been set successfully");
     }
 

@@ -1,6 +1,6 @@
 package api;
 
-import helpers.UserTokenGenerator;
+import helpers.UserLogin;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpHeaders;
 
@@ -19,10 +19,10 @@ public class ApiClient {
     }
 
     private void authorize(BaseRequest request) {
-        if (UserTokenGenerator.getToken() == null) {
+        if (UserLogin.getToken() == null) {
             request.getHeaders().put(HttpHeaders.AUTHORIZATION, getAuthorizationType());
         } else {
-            request.getHeaders().put(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", UserTokenGenerator.getToken()));
+            request.getHeaders().put(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", UserLogin.getToken()));
         }
     }
 }
