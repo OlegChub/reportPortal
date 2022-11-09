@@ -20,4 +20,7 @@ public class UserAuthConfig {
     public static String getAuthorizationType(){
         return userCredentialsAuthConfig.authorizationType();
     }
+    public static String getToken(){
+        return userCredentialsAuthConfig.token();
+    }
 }
