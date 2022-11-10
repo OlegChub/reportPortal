@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Filter {
-    private final String value="1";
-    private final String name="DEMO_FILTER";
+    private final String value = "1";
+    private final String name = "DEMO_FILTER";
 }

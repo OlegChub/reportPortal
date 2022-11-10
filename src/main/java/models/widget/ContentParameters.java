@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ContentParameters {
-    private final String itemsCount="10";
+    private final String itemsCount = "10";
     private WidgetOptions widgetOptions;
 }

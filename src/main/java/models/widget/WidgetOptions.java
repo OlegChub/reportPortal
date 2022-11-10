@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WidgetOptions {
-    private final boolean latest=false;
+    private final boolean latest = false;
 }
