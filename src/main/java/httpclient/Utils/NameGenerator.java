@@ -13,6 +13,4 @@ public class NameGenerator {
                 .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
                 .toString();
     }
-
-
 }
