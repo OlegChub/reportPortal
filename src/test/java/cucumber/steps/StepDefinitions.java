@@ -4,7 +4,11 @@ import api.ApiClient;
 import controllers.DashboardController;
 import controllers.LaunchController;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class StepDefinitions {
+    private static final Logger LOGGER = LogManager.getLogger();
     private ApiClient api = new ApiClient();
     private int launchId;
     private String parameter;
@@ -24,9 +29,11 @@ public class StepDefinitions {
     private DashboardController dashboards = new DashboardController(api);
     private ArrayList<String> listWithDashboardNames;
 
-    @When("user is logged in")
+    @Given("user is logged in")
     public void checkUserIsLoggedIn() {
+        LOGGER.info("Checking access token ...");
         assertNotNull(getToken(), "Authorization failed");
+        LOGGER.info("Access token is actual");
     }
 
     @When("user makes request to get all permitted dashboard resources for the project")
@@ -34,7 +41,7 @@ public class StepDefinitions {
         listWithDashboardNames = dashboards.getAllDashboardNames();
     }
 
-    @When("user sees dashboard with {string} name")
+    @Then("user sees dashboard with {string} name")
     public void checkDashboardNameIsInList(String dashboardName) {
         assertThat(listWithDashboardNames, hasItem(dashboardName));
     }
@@ -44,12 +51,12 @@ public class StepDefinitions {
         launch.getExactLaunchInfo(launchId);
     }
 
-    @When("user sees that parameter {string} has value {int}")
+    @Then("user sees that parameter {string} has value {int}")
     public void checkParameterHasValue(String parameterName, int expectedValue) {
         assertEquals(expectedValue, launch.getLaunchDefectsInfoParameter(parameterName));
     }
 
-    @When("user has initial data")
+    @Given("user has initial data")
     public void getInitialData(DataTable table) {
         List<Map<String, String>> rows = table.asMaps(String.class, String.class);
         for (Map<String, String> columns : rows) {
@@ -63,7 +70,7 @@ public class StepDefinitions {
         launch.getExactLaunchInfo(launchId);
     }
 
-    @When("user sees that parameter value is {int}")
+    @Then("user sees that parameter value is {int}")
     public void userSeesThatParameterValueIs(int expectedValue) {
         assertEquals(expectedValue, launch.getLaunchDefectsInfoParameter(parameter));
     }
