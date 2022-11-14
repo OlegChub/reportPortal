@@ -12,3 +12,10 @@ Feature: Exact launch info checking
       | productBug    | 4             |
       | toInvestigate | 10            |
       | automationBug | 4             |
+
+  Scenario: Check exact launch product bug quantity
+    Given user has initial data
+      | launchId | parameter  |
+      | 3        | productBug |
+    When user makes the request
+    Then user sees that parameter value is 4
