@@ -1,6 +1,6 @@
 package httpClientTests;
 
-import httpclient.controllers.WidgetHandler;
+import httpclient.controllers.WidgetRequest;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.ParseException;
@@ -12,22 +12,22 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static httpclient.helpers.JSONTestData.getJSONValueByKey;
-import static httpclient.helpers.JSONTestData.getNewWidgetJSON;
+import static httpclient.helpers.JSONHelper.getJSONValueByKey;
 import static httpclient.helpers.ResponseHandler.getIdFromResponse;
 import static httpclient.helpers.ResponseHandler.getResponseAsJSONObject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class HttpClientWidgetTests extends HttpClientBaseTest {
-    private WidgetHandler widgetHandler = new WidgetHandler(HttpClientBaseTest.client);
+    private final String WIDGET_JSON_FILE_NAME = "newWidget";
     private final int DASHBOARD_ID = 46;
+    private WidgetRequest widgetRequest = new WidgetRequest(HttpClientBaseTest.client);
     private int newWidgetId;
     private CloseableHttpResponse response;
 
     @BeforeEach
     protected void testDataPreparation() throws URISyntaxException, IOException, ParseException {
-        response = widgetHandler.createWidget(getNewWidgetJSON());
+        response = widgetRequest.createWidget(WIDGET_JSON_FILE_NAME);
         newWidgetId = getIdFromResponse(response);
     }
 
@@ -39,32 +39,23 @@ public class HttpClientWidgetTests extends HttpClientBaseTest {
 
     @Test
     void widgetUpdated() throws IOException, URISyntaxException, ParseException {
-        JSONObject newWidgetInfo = getResponseAsJSONObject(widgetHandler.getWidgetById(newWidgetId));
+        JSONObject newWidgetInfo = getResponseAsJSONObject(widgetRequest.getWidgetById(newWidgetId));
         String originalName = getJSONValueByKey("name", newWidgetInfo);
         String originalDescription = getJSONValueByKey("description", newWidgetInfo);
+        widgetRequest.updateWidget(newWidgetId, WIDGET_JSON_FILE_NAME);
+        JSONObject modifiedWidgetInfo = getResponseAsJSONObject(widgetRequest.getWidgetById(newWidgetId));
 
-        JSONObject modifiedJSON = getNewWidgetJSON();
-        String newWidgetName = getJSONValueByKey("name", modifiedJSON);
-        String newWidgetDescription = getJSONValueByKey("description", modifiedJSON);
-
-        int StatusCodeAfterUpdate = widgetHandler.updateWidget(newWidgetId, modifiedJSON).getCode();
-
-        JSONObject ModifiedWidgetInfo = getResponseAsJSONObject(widgetHandler.getWidgetById(newWidgetId));
-
-        assertEquals(HttpStatus.SC_OK, StatusCodeAfterUpdate);
-        assertEquals(newWidgetName, getJSONValueByKey("name", ModifiedWidgetInfo));
-        assertNotEquals(newWidgetName, originalName);
-        assertEquals(newWidgetDescription, getJSONValueByKey("description", ModifiedWidgetInfo));
-        assertNotEquals(newWidgetDescription, originalDescription);
+        assertNotEquals(originalName, getJSONValueByKey("name", modifiedWidgetInfo));
+        assertNotEquals(originalDescription, getJSONValueByKey("description", modifiedWidgetInfo));
     }
 
     @Test
     void existingWidgetDeleted() throws IOException, URISyntaxException {
-        assertEquals(HttpStatus.SC_OK, widgetHandler.deleteWidget(DASHBOARD_ID, newWidgetId).getCode());
+        assertEquals(HttpStatus.SC_OK, widgetRequest.deleteWidget(DASHBOARD_ID, newWidgetId).getCode());
     }
 
     @AfterEach
     protected void cleanUp() throws URISyntaxException, IOException {
-        widgetHandler.deleteWidget(DASHBOARD_ID, newWidgetId);
+        widgetRequest.deleteWidget(DASHBOARD_ID, newWidgetId);
     }
 }

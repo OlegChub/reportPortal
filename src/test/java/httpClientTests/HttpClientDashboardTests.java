@@ -1,6 +1,6 @@
 package httpClientTests;
 
-import httpclient.controllers.DashboardHandler;
+import httpclient.controllers.DashboardRequest;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.ParseException;
@@ -12,21 +12,21 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static httpclient.helpers.JSONTestData.getJSONValueByKey;
-import static httpclient.helpers.JSONTestData.getNewDashboardJSON;
+import static httpclient.helpers.JSONHelper.getJSONValueByKey;
 import static httpclient.helpers.ResponseHandler.getIdFromResponse;
 import static httpclient.helpers.ResponseHandler.getResponseAsJSONObject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class HttpClientDashboardTests extends HttpClientBaseTest {
-    private DashboardHandler dashboardHandler = new DashboardHandler(HttpClientBaseTest.client);
+    private final String DASHBOARD_JSON_FILE_NAME = "newDashboard";
+    private DashboardRequest dashboardRequest = new DashboardRequest(HttpClientBaseTest.client);
     private CloseableHttpResponse response;
     private int newDashboardId;
 
     @BeforeEach
     protected void testDataPreparation() throws URISyntaxException, IOException, ParseException {
-        response = dashboardHandler.createDashboard(getNewDashboardJSON());
+        response = dashboardRequest.createDashboard(DASHBOARD_JSON_FILE_NAME);
         newDashboardId = getIdFromResponse(response);
     }
 
@@ -38,31 +38,23 @@ public class HttpClientDashboardTests extends HttpClientBaseTest {
 
     @Test
     void createdDashboardModified() throws IOException, URISyntaxException, ParseException {
-        JSONObject newDashboardInfo = getResponseAsJSONObject(dashboardHandler.getDashboardById(newDashboardId));
+        JSONObject newDashboardInfo = getResponseAsJSONObject(dashboardRequest.getDashboardById(newDashboardId));
         String originalName = getJSONValueByKey("name", newDashboardInfo);
         String originalDescription = getJSONValueByKey("description", newDashboardInfo);
+        dashboardRequest.modifyDashboard(newDashboardId, DASHBOARD_JSON_FILE_NAME);
+        JSONObject modifiedDashboardInfo = getResponseAsJSONObject(dashboardRequest.getDashboardById(newDashboardId));
 
-        JSONObject modifiedJSON = getNewDashboardJSON();
-        String newDashboardName = getJSONValueByKey("name", modifiedJSON);
-        String newDashboardDescription = getJSONValueByKey("description", modifiedJSON);
-
-        dashboardHandler.modifyDashboard(newDashboardId, modifiedJSON);
-
-        JSONObject ModifiedDashboardInfo = getResponseAsJSONObject(dashboardHandler.getDashboardById(newDashboardId));
-
-        assertEquals(newDashboardName, getJSONValueByKey("name", ModifiedDashboardInfo));
-        assertNotEquals(newDashboardName, originalName);
-        assertEquals(newDashboardDescription, getJSONValueByKey("description", ModifiedDashboardInfo));
-        assertNotEquals(newDashboardDescription, originalDescription);
+        assertNotEquals(originalName, getJSONValueByKey("name", modifiedDashboardInfo));
+        assertNotEquals(originalDescription, getJSONValueByKey("description", modifiedDashboardInfo));
     }
 
     @Test
     void existingDashboardDeleted() throws IOException, URISyntaxException {
-        assertEquals(HttpStatus.SC_OK, dashboardHandler.deleteDashboard(newDashboardId).getCode());
+        assertEquals(HttpStatus.SC_OK, dashboardRequest.deleteDashboard(newDashboardId).getCode());
     }
 
     @AfterEach
     protected void cleanUp() throws URISyntaxException, IOException {
-        dashboardHandler.deleteDashboard(newDashboardId);
+        dashboardRequest.deleteDashboard(newDashboardId);
     }
 }
