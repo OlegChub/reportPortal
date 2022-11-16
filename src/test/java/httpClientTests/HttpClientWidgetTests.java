@@ -3,14 +3,10 @@ package httpClientTests;
 import httpclient.controllers.WidgetRequest;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.HttpStatus;
-import org.apache.hc.core5.http.ParseException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 import static httpclient.helpers.JSONHelper.getJSONValueByKey;
 import static httpclient.helpers.ResponseHandler.getIdFromResponse;
@@ -26,7 +22,7 @@ public class HttpClientWidgetTests extends HttpClientBaseTest {
     private CloseableHttpResponse response;
 
     @BeforeEach
-    protected void testDataPreparation() throws URISyntaxException, IOException, ParseException {
+    protected void testDataPreparation() {
         response = widgetRequest.createWidget(WIDGET_JSON_FILE_NAME);
         newWidgetId = getIdFromResponse(response);
     }
@@ -38,7 +34,7 @@ public class HttpClientWidgetTests extends HttpClientBaseTest {
     }
 
     @Test
-    void widgetUpdated() throws IOException, URISyntaxException, ParseException {
+    void widgetUpdated() {
         JSONObject newWidgetInfo = getResponseAsJSONObject(widgetRequest.getWidgetById(newWidgetId));
         String originalName = getJSONValueByKey("name", newWidgetInfo);
         String originalDescription = getJSONValueByKey("description", newWidgetInfo);
@@ -50,12 +46,12 @@ public class HttpClientWidgetTests extends HttpClientBaseTest {
     }
 
     @Test
-    void existingWidgetDeleted() throws IOException, URISyntaxException {
+    void existingWidgetDeleted() {
         assertEquals(HttpStatus.SC_OK, widgetRequest.deleteWidget(DASHBOARD_ID, newWidgetId).getCode());
     }
 
     @AfterEach
-    protected void cleanUp() throws URISyntaxException, IOException {
+    protected void cleanUp() {
         widgetRequest.deleteWidget(DASHBOARD_ID, newWidgetId);
     }
 }

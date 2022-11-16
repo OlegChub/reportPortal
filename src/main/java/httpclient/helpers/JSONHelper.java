@@ -20,7 +20,7 @@ public class JSONHelper {
         String patternBeginning = "${";
         String patternEnding = "}";
         String JSONAsString = convertJSONFileToString(JSONFileName);
-        
+
         return replaceVarsWithRandomString(patternBeginning, patternEnding, JSONAsString, generateRandomString());
     }
 

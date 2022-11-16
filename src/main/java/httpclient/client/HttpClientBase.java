@@ -16,7 +16,11 @@ public class HttpClientBase {
         this.httpClient = HttpClients.custom().setDefaultHeaders(getDefaultHeaders()).build();
     }
 
-    public CloseableHttpResponse execute(HttpUriRequestBase requestBase) throws IOException {
-        return this.httpClient.execute(requestBase);
+    public CloseableHttpResponse execute(HttpUriRequestBase requestBase) {
+        try {
+            return this.httpClient.execute(requestBase);
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }

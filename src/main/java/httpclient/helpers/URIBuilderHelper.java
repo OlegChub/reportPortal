@@ -19,9 +19,13 @@ public class URIBuilderHelper {
         return builder;
     }
 
-    public static URI buildUri(String endpoint) throws URISyntaxException {
-        return getUriBuilder(endpoint)
-                .build();
+    public static URI buildUri(String endpoint) {
+        try {
+            return getUriBuilder(endpoint)
+                    .build();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
 }

@@ -4,9 +4,6 @@ import org.apache.hc.client5.http.classic.methods.*;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import static httpclient.helpers.JSONHelper.getPreparedJSONFileAsString;
 import static httpclient.helpers.URIBuilderHelper.buildUri;
 
@@ -17,7 +14,7 @@ public class BaseRequest {
         return httpRequest;
     }
 
-    private void setUpHttpRequest(String method, String endpoint) throws URISyntaxException {
+    private void setUpHttpRequest(String method, String endpoint) {
         HttpUriRequestBase RequestBase;
         switch (method.toUpperCase()) {
             case (HttpGet.METHOD_NAME):
@@ -46,24 +43,24 @@ public class BaseRequest {
         httpRequest.setEntity(new StringEntity(getPreparedJSONFileAsString(JSONName)));
     }
 
-    protected CloseableHttpResponse getItemById(HttpClientBase client, String endpoint, int itemId) throws URISyntaxException, IOException {
+    protected CloseableHttpResponse getItemById(HttpClientBase client, String endpoint, int itemId) {
         setUpHttpRequest("GET", String.format(endpoint + "/%d", +itemId));
         return client.execute(this.getHttpRequest());
     }
 
-    protected CloseableHttpResponse postItemWithJson(HttpClientBase client, String endpoint, String JSONName) throws URISyntaxException, IOException {
+    protected CloseableHttpResponse postItemWithJson(HttpClientBase client, String endpoint, String JSONName) {
         setUpHttpRequest("POST", endpoint);
         this.addPostMethodBodyJson(JSONName);
         return client.execute(this.getHttpRequest());
     }
 
-    protected CloseableHttpResponse updateItem(HttpClientBase client, String endpoint, int itemId, String JSONName) throws URISyntaxException, IOException {
+    protected CloseableHttpResponse updateItem(HttpClientBase client, String endpoint, int itemId, String JSONName) {
         setUpHttpRequest("PUT", String.format(endpoint + "/%d", +itemId));
         this.addPostMethodBodyJson(JSONName);
         return client.execute(this.getHttpRequest());
     }
 
-    protected CloseableHttpResponse deleteItem(HttpClientBase client, String endpoint, int... itemId) throws URISyntaxException, IOException {
+    protected CloseableHttpResponse deleteItem(HttpClientBase client, String endpoint, int... itemId) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(endpoint);
 

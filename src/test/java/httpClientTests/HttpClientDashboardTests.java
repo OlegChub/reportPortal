@@ -3,14 +3,10 @@ package httpClientTests;
 import httpclient.controllers.DashboardRequest;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.HttpStatus;
-import org.apache.hc.core5.http.ParseException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 import static httpclient.helpers.JSONHelper.getJSONValueByKey;
 import static httpclient.helpers.ResponseHandler.getIdFromResponse;
@@ -25,7 +21,7 @@ public class HttpClientDashboardTests extends HttpClientBaseTest {
     private int newDashboardId;
 
     @BeforeEach
-    protected void testDataPreparation() throws URISyntaxException, IOException, ParseException {
+    protected void testDataPreparation() {
         response = dashboardRequest.createDashboard(DASHBOARD_JSON_FILE_NAME);
         newDashboardId = getIdFromResponse(response);
     }
@@ -37,7 +33,7 @@ public class HttpClientDashboardTests extends HttpClientBaseTest {
     }
 
     @Test
-    void createdDashboardModified() throws IOException, URISyntaxException, ParseException {
+    void createdDashboardModified() {
         JSONObject newDashboardInfo = getResponseAsJSONObject(dashboardRequest.getDashboardById(newDashboardId));
         String originalName = getJSONValueByKey("name", newDashboardInfo);
         String originalDescription = getJSONValueByKey("description", newDashboardInfo);
@@ -49,12 +45,12 @@ public class HttpClientDashboardTests extends HttpClientBaseTest {
     }
 
     @Test
-    void existingDashboardDeleted() throws IOException, URISyntaxException {
+    void existingDashboardDeleted() {
         assertEquals(HttpStatus.SC_OK, dashboardRequest.deleteDashboard(newDashboardId).getCode());
     }
 
     @AfterEach
-    protected void cleanUp() throws URISyntaxException, IOException {
+    protected void cleanUp() {
         dashboardRequest.deleteDashboard(newDashboardId);
     }
 }

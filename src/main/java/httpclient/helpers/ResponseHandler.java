@@ -9,12 +9,17 @@ import java.io.IOException;
 
 public class ResponseHandler {
 
-    public static JSONObject getResponseAsJSONObject(CloseableHttpResponse response) throws IOException, ParseException {
-        String str = EntityUtils.toString(response.getEntity());
+    public static JSONObject getResponseAsJSONObject(CloseableHttpResponse response) {
+        String str;
+        try {
+            str = EntityUtils.toString(response.getEntity());
+        } catch (IOException | ParseException e) {
+            throw new RuntimeException(e.getMessage());
+        }
         return new JSONObject(str);
     }
 
-    public static int getIdFromResponse(CloseableHttpResponse response) throws IOException, ParseException {
+    public static int getIdFromResponse(CloseableHttpResponse response) {
         return getResponseAsJSONObject(response).getInt("id");
     }
 }
