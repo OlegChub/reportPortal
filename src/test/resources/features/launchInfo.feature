@@ -18,4 +18,11 @@ Feature: Exact launch info checking
       | launchId | parameter  |
       | 3        | productBug |
     When user makes the request
-    Then user sees that parameter value is 4
+    Then user sees that parameter "productBug" has value 4
+
+  Scenario: Check exact launch product defect by type
+    Given user has data of the defect
+      | defectName | quantity |
+      | productBug | 4        |
+    When user makes request to get info of launch with id 3
+    Then user sees that parameter value in response is equal
