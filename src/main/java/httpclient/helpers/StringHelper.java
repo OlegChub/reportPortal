@@ -1,19 +1,14 @@
 package httpclient.helpers;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class StringHelper {
     static public String generateRandomString() {
         int length = 8;
-        Random random = new Random();
-        return random.ints(48, 122)
-                .filter(i -> (i < 57 || i > 65) && (i < 90 || i > 97))
-                .mapToObj(i -> (char) i)
-                .limit(length)
-                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
-                .toString();
+        return RandomStringUtils.randomAlphanumeric(length);
     }
 
     static public String replaceVarsWithRandomString(String patternBeginning, String patternEnding, String originalString, String replacementString) {

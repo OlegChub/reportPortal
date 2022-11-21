@@ -11,17 +11,16 @@ import static httpclient.helpers.StringHelper.replaceVarsWithRandomString;
 
 public class JSONHelper {
     private static final String PATH_TO_JSON_FILE = "src/test/resources/testData/json/";
+    private static final String PATTERN_BEGINNING = "${";
+    private static final String PATTERN_ENDING = "}";
 
     static public String getJSONValueByKey(String key, JSONObject json) {
         return String.valueOf(json.get(key));
     }
 
     static public String getPreparedJSONFileAsString(String JSONFileName) {
-        String patternBeginning = "${";
-        String patternEnding = "}";
-        String JSONAsString = convertJSONFileToString(JSONFileName);
-
-        return replaceVarsWithRandomString(patternBeginning, patternEnding, JSONAsString, generateRandomString());
+        return replaceVarsWithRandomString(PATTERN_BEGINNING, PATTERN_ENDING, convertJSONFileToString(JSONFileName),
+                generateRandomString());
     }
 
     static public String convertJSONFileToString(String JSONFileName) {

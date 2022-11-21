@@ -10,13 +10,13 @@ import java.io.IOException;
 public class ResponseHandler {
 
     public static JSONObject getResponseAsJSONObject(CloseableHttpResponse response) {
-        String str;
+        String responseAsString;
         try {
-            str = EntityUtils.toString(response.getEntity());
+            responseAsString = EntityUtils.toString(response.getEntity());
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e.getMessage());
         }
-        return new JSONObject(str);
+        return new JSONObject(responseAsString);
     }
 
     public static int getIdFromResponse(CloseableHttpResponse response) {

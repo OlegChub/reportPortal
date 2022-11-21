@@ -11,7 +11,7 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 @Execution(ExecutionMode.CONCURRENT)
 public class HttpClientBaseTest {
     private static final Logger logger = LogManager.getLogger();
-    static HttpClientBase client = new HttpClientBase();
+    protected HttpClientBase client = new HttpClientBase();
 
     @BeforeEach
     protected void start() {

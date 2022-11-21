@@ -39,34 +39,34 @@ public class BaseRequest {
         this.httpRequest = RequestBase;
     }
 
-    private void addPostMethodBodyJson(String JSONName) {
-        httpRequest.setEntity(new StringEntity(getPreparedJSONFileAsString(JSONName)));
+    private void addPostMethodBodyJson(String JSONFileName) {
+        httpRequest.setEntity(new StringEntity(getPreparedJSONFileAsString(JSONFileName)));
     }
 
     protected CloseableHttpResponse getItemById(HttpClientBase client, String endpoint, int itemId) {
-        setUpHttpRequest("GET", String.format(endpoint + "/%d", +itemId));
+        setUpHttpRequest("GET", String.format(endpoint + "/%d", itemId));
         return client.execute(this.getHttpRequest());
     }
 
-    protected CloseableHttpResponse postItemWithJson(HttpClientBase client, String endpoint, String JSONName) {
+    protected CloseableHttpResponse postItemWithJson(HttpClientBase client, String endpoint, String JSONFileName) {
         setUpHttpRequest("POST", endpoint);
-        this.addPostMethodBodyJson(JSONName);
+        this.addPostMethodBodyJson(JSONFileName);
         return client.execute(this.getHttpRequest());
     }
 
-    protected CloseableHttpResponse updateItem(HttpClientBase client, String endpoint, int itemId, String JSONName) {
-        setUpHttpRequest("PUT", String.format(endpoint + "/%d", +itemId));
-        this.addPostMethodBodyJson(JSONName);
+    protected CloseableHttpResponse updateItem(HttpClientBase client, String endpoint, int itemId, String JSONFileName) {
+        setUpHttpRequest("PUT", String.format(endpoint + "/%d", itemId));
+        this.addPostMethodBodyJson(JSONFileName);
         return client.execute(this.getHttpRequest());
     }
 
-    protected CloseableHttpResponse deleteItem(HttpClientBase client, String endpoint, int... itemId) {
+    protected CloseableHttpResponse deleteItem(HttpClientBase client, String endpoint, int... ids) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(endpoint);
 
-        for (int i = 0; i < itemId.length; i++)
-            stringBuilder.append("/" + itemId[i]);
-
+        for (int i = 0; i < ids.length; i++) {
+            stringBuilder.append("/" + ids[i]);
+        }
         setUpHttpRequest("DELETE", stringBuilder.toString());
         return client.execute(this.getHttpRequest());
     }

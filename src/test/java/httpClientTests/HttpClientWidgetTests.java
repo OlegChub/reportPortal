@@ -1,6 +1,6 @@
 package httpClientTests;
 
-import httpclient.controllers.WidgetRequest;
+import httpclient.controllers.WidgetController;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.HttpStatus;
 import org.json.JSONObject;
@@ -17,41 +17,41 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class HttpClientWidgetTests extends HttpClientBaseTest {
     private final String WIDGET_JSON_FILE_NAME = "newWidget";
     private final int DASHBOARD_ID = 46;
-    private WidgetRequest widgetRequest = new WidgetRequest(HttpClientBaseTest.client);
+    private WidgetController widgetController = new WidgetController(client);
     private int newWidgetId;
     private CloseableHttpResponse response;
 
     @BeforeEach
-    protected void testDataPreparation() {
-        response = widgetRequest.createWidget(WIDGET_JSON_FILE_NAME);
+    protected void prepareTestData() {
+        response = widgetController.createWidget(WIDGET_JSON_FILE_NAME);
         newWidgetId = getIdFromResponse(response);
     }
 
     @Test
-    void newWidgetCreated() {
+    void createNewWidget() {
         assertEquals(HttpStatus.SC_CREATED, response.getCode());
         assertNotEquals(0, newWidgetId);
     }
 
     @Test
-    void widgetUpdated() {
-        JSONObject newWidgetInfo = getResponseAsJSONObject(widgetRequest.getWidgetById(newWidgetId));
+    void updateWidget() {
+        JSONObject newWidgetInfo = getResponseAsJSONObject(widgetController.getWidgetById(newWidgetId));
         String originalName = getJSONValueByKey("name", newWidgetInfo);
         String originalDescription = getJSONValueByKey("description", newWidgetInfo);
-        widgetRequest.updateWidget(newWidgetId, WIDGET_JSON_FILE_NAME);
-        JSONObject modifiedWidgetInfo = getResponseAsJSONObject(widgetRequest.getWidgetById(newWidgetId));
+        widgetController.updateWidget(newWidgetId, WIDGET_JSON_FILE_NAME);
+        JSONObject modifiedWidgetInfo = getResponseAsJSONObject(widgetController.getWidgetById(newWidgetId));
 
         assertNotEquals(originalName, getJSONValueByKey("name", modifiedWidgetInfo));
         assertNotEquals(originalDescription, getJSONValueByKey("description", modifiedWidgetInfo));
     }
 
     @Test
-    void existingWidgetDeleted() {
-        assertEquals(HttpStatus.SC_OK, widgetRequest.deleteWidget(DASHBOARD_ID, newWidgetId).getCode());
+    void deleteWidget() {
+        assertEquals(HttpStatus.SC_OK, widgetController.deleteWidget(DASHBOARD_ID, newWidgetId).getCode());
     }
 
     @AfterEach
     protected void cleanUp() {
-        widgetRequest.deleteWidget(DASHBOARD_ID, newWidgetId);
+        widgetController.deleteWidget(DASHBOARD_ID, newWidgetId);
     }
 }
