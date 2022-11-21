@@ -9,6 +9,11 @@ import static httpclient.helpers.URIBuilderHelper.buildUri;
 
 public class BaseRequest {
     private HttpUriRequestBase httpRequest;
+    private HttpClientBase client;
+
+    public BaseRequest() {
+        this.client = ClientProvider.getHttpClientBase();
+    }
 
     public HttpUriRequestBase getHttpRequest() {
         return httpRequest;
@@ -43,24 +48,24 @@ public class BaseRequest {
         httpRequest.setEntity(new StringEntity(getPreparedJSONFileAsString(JSONFileName)));
     }
 
-    protected CloseableHttpResponse getItemById(HttpClientBase client, String endpoint, int itemId) {
+    protected CloseableHttpResponse getItemById(String endpoint, int itemId) {
         setUpHttpRequest("GET", String.format(endpoint + "/%d", itemId));
         return client.execute(this.getHttpRequest());
     }
 
-    protected CloseableHttpResponse postItemWithJson(HttpClientBase client, String endpoint, String JSONFileName) {
+    protected CloseableHttpResponse postItemWithJson(String endpoint, String JSONFileName) {
         setUpHttpRequest("POST", endpoint);
         this.addPostMethodBodyJson(JSONFileName);
         return client.execute(this.getHttpRequest());
     }
 
-    protected CloseableHttpResponse updateItem(HttpClientBase client, String endpoint, int itemId, String JSONFileName) {
+    protected CloseableHttpResponse updateItem(String endpoint, int itemId, String JSONFileName) {
         setUpHttpRequest("PUT", String.format(endpoint + "/%d", itemId));
         this.addPostMethodBodyJson(JSONFileName);
         return client.execute(this.getHttpRequest());
     }
 
-    protected CloseableHttpResponse deleteItem(HttpClientBase client, String endpoint, int... ids) {
+    protected CloseableHttpResponse deleteItem(String endpoint, int... ids) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(endpoint);
 

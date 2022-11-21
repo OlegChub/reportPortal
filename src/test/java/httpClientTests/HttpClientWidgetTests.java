@@ -6,6 +6,7 @@ import org.apache.hc.core5.http.HttpStatus;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static httpclient.helpers.JSONHelper.getJSONValueByKey;
@@ -14,10 +15,11 @@ import static httpclient.helpers.ResponseHandler.getResponseAsJSONObject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+@Tag("httpClientTests")
 public class HttpClientWidgetTests extends HttpClientBaseTest {
     private final String WIDGET_JSON_FILE_NAME = "newWidget";
     private final int DASHBOARD_ID = 46;
-    private WidgetController widgetController = new WidgetController(client);
+    private WidgetController widgetController = new WidgetController();
     private int newWidgetId;
     private CloseableHttpResponse response;
 

@@ -6,6 +6,7 @@ import org.apache.hc.core5.http.HttpStatus;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static httpclient.helpers.JSONHelper.getJSONValueByKey;
@@ -14,9 +15,10 @@ import static httpclient.helpers.ResponseHandler.getResponseAsJSONObject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+@Tag("httpClientTests")
 public class HttpClientDashboardTests extends HttpClientBaseTest {
     private final String DASHBOARD_JSON_FILE_NAME = "newDashboard";
-    private DashboardController dashboardController = new DashboardController(client);
+    private DashboardController dashboardController = new DashboardController();
     private CloseableHttpResponse response;
     private int newDashboardId;
 
