@@ -1,12 +1,12 @@
 package httpclient.controllers;
 
-import httpclient.client.BaseRequest;
+import httpclient.client.RequestService;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 
 import static httpclient.endpoints.Endpoints.DASHBOARD_ENDPOINT;
 import static httpclient.endpoints.Endpoints.WIDGET_ENDPOINT;
 
-public class WidgetController extends BaseRequest {
+public class WidgetController extends RequestService {
 
     public CloseableHttpResponse getWidgetById(int widgetId) {
         return getItemById(WIDGET_ENDPOINT, widgetId);

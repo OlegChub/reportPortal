@@ -7,11 +7,11 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import static httpclient.helpers.JSONHelper.getPreparedJSONFileAsString;
 import static httpclient.helpers.URIBuilderHelper.buildUri;
 
-public class BaseRequest {
+public class RequestService {
     private HttpUriRequestBase httpRequest;
     private HttpClientBase client;
 
-    public BaseRequest() {
+    public RequestService() {
         this.client = ClientProvider.getHttpClientBase();
     }
 

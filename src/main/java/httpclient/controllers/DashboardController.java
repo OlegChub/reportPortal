@@ -1,11 +1,11 @@
 package httpclient.controllers;
 
-import httpclient.client.BaseRequest;
+import httpclient.client.RequestService;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 
 import static httpclient.endpoints.Endpoints.DASHBOARD_ENDPOINT;
 
-public class DashboardController extends BaseRequest {
+public class DashboardController extends RequestService {
 
     public CloseableHttpResponse getDashboardById(int dashboardId) {
         return getItemById(DASHBOARD_ENDPOINT, dashboardId);
