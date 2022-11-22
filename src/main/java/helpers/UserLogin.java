@@ -7,15 +7,15 @@ import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import models.UserLoginResponse;
 
-public class UserTokenGenerator {
+public class UserLogin {
     private ApiClient client;
     private static String token;
 
-    public UserTokenGenerator(ApiClient client) {
+    public UserLogin(ApiClient client) {
         this.client = client;
     }
 
-    public void setToken() throws FailedToLoginException {
+    public void login() throws FailedToLoginException {
         ValidatableResponse validatableResponse = client.execute(new PostUserOauth());
         Response response = validatableResponse.extract().response();
         if (response.statusCode() != 200) {
