@@ -8,7 +8,7 @@ import static helpers.UserAuthConfig.getUserName;
 import static ui.pages.HomePage.HOME_URL;
 
 public class LoginPage extends BasePage {
-    private static final String LOGIN_URL = HOME_URL + "/ui/#login";
+    private static final String LOGIN_URL = HOME_URL + "ui/#login";
     private static final By LOGIN_FIELD = By.name("login");
     private static final By PASSWORD_FIELD = By.name("password");
     private static final By LOGIN_BUTTON = By.cssSelector("[type='submit']");
