@@ -1,6 +1,6 @@
 import api.ApiClient;
 import exeptions.FailedToLoginException;
-import helpers.UserTokenGenerator;
+import helpers.UserLogin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
@@ -13,12 +13,12 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 public class BaseTest {
     private static final Logger logger = LogManager.getLogger();
     public static ApiClient api = new ApiClient();
-    private static UserTokenGenerator userTokenGenerator = new UserTokenGenerator(api);
+    private static UserLogin userLogin = new UserLogin(api);
 
     @BeforeAll
     protected static void setAccessToken() throws FailedToLoginException {
         logger.info("Setting token ...");
-        userTokenGenerator.setToken();
+        userLogin.login();
         logger.info("Token has been set successfully");
     }
 
