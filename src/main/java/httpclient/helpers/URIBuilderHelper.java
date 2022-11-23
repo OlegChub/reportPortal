@@ -1,6 +1,8 @@
 package httpclient.helpers;
 
+import exeptions.ProceedFailedException;
 import helpers.ConfigSetUp;
+import httpclient.log.HttpClientLogger;
 import org.apache.hc.core5.net.URIBuilder;
 
 import java.net.URI;
@@ -17,7 +19,8 @@ public class URIBuilderHelper {
         try {
             return builder.build();
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            HttpClientLogger.logger.error("Bad URI");
+            throw new ProceedFailedException(e.getMessage());
         }
 
     }

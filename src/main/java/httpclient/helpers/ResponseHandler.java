@@ -1,5 +1,7 @@
 package httpclient.helpers;
 
+import exeptions.ProceedFailedException;
+import httpclient.log.HttpClientLogger;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
@@ -14,7 +16,8 @@ public class ResponseHandler {
         try {
             responseAsString = EntityUtils.toString(response.getEntity());
         } catch (IOException | ParseException e) {
-            throw new RuntimeException(e.getMessage());
+            HttpClientLogger.logger.error("Failed to parse response to string");
+            throw new ProceedFailedException(e.getMessage());
         }
         return new JSONObject(responseAsString);
     }

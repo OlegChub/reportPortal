@@ -1,5 +1,7 @@
 package httpclient.client;
 
+import exeptions.ProceedFailedException;
+import httpclient.log.HttpClientLogger;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -18,7 +20,8 @@ public class HttpClientBase {
         try {
             return this.httpClient.execute(requestBase);
         } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+            HttpClientLogger.logger.error("Failed to execute the request");
+            throw new ProceedFailedException(e.getMessage());
         }
     }
 }

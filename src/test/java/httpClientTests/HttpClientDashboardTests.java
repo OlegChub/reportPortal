@@ -1,6 +1,7 @@
 package httpClientTests;
 
 import httpclient.controllers.DashboardController;
+import httpclient.log.HttpClientLogger;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.HttpStatus;
 import org.json.JSONObject;
@@ -24,7 +25,10 @@ public class HttpClientDashboardTests extends HttpClientBaseTest {
 
     @BeforeEach
     protected void prepareTestData() {
+        HttpClientLogger.logger.info("New dashboard creating ...");
         response = dashboardController.createDashboard(DASHBOARD_JSON_FILE_NAME);
+        assertEquals(HttpStatus.SC_CREATED, response.getCode());
+        HttpClientLogger.logger.info("Dashboard successfully created");
         newDashboardId = getIdFromResponse(response);
     }
 
@@ -53,6 +57,8 @@ public class HttpClientDashboardTests extends HttpClientBaseTest {
 
     @AfterEach
     protected void cleanUp() {
+        HttpClientLogger.logger.info("Deleting testing data ...");
         dashboardController.deleteDashboard(newDashboardId);
+        HttpClientLogger.logger.info("Testing data successfully deleted");
     }
 }

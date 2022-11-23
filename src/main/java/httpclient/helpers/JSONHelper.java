@@ -1,5 +1,7 @@
 package httpclient.helpers;
 
+import exeptions.ProceedFailedException;
+import httpclient.log.HttpClientLogger;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -27,8 +29,9 @@ public class JSONHelper {
         String pathToJSONFIle = String.format(PATH_TO_JSON_FILE + "%s.json", JSONFileName);
         try {
             return new String(Files.readAllBytes(Paths.get(pathToJSONFIle)));
-        } catch (IOException exception) {
-            throw new RuntimeException(exception.getMessage());
+        } catch (IOException e) {
+            HttpClientLogger.logger.error("Failed to read JSON file");
+            throw new ProceedFailedException("Check file: " + e.getMessage());
         }
     }
 }

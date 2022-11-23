@@ -1,6 +1,7 @@
 package httpClientTests;
 
 import httpclient.controllers.WidgetController;
+import httpclient.log.HttpClientLogger;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.HttpStatus;
 import org.json.JSONObject;
@@ -25,13 +26,15 @@ public class HttpClientWidgetTests extends HttpClientBaseTest {
 
     @BeforeEach
     protected void prepareTestData() {
+        HttpClientLogger.logger.info("New widget creating ...");
         response = widgetController.createWidget(WIDGET_JSON_FILE_NAME);
+        assertEquals(HttpStatus.SC_CREATED, response.getCode());
+        HttpClientLogger.logger.info("Widget successfully created");
         newWidgetId = getIdFromResponse(response);
     }
 
     @Test
     void createNewWidget() {
-        assertEquals(HttpStatus.SC_CREATED, response.getCode());
         assertNotEquals(0, newWidgetId);
     }
 
@@ -54,6 +57,8 @@ public class HttpClientWidgetTests extends HttpClientBaseTest {
 
     @AfterEach
     protected void cleanUp() {
+        HttpClientLogger.logger.info("Deleting testing data ...");
         widgetController.deleteWidget(DASHBOARD_ID, newWidgetId);
+        HttpClientLogger.logger.info("Testing data successfully deleted");
     }
 }
