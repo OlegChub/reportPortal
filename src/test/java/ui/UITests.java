@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+import ui.helpers.ActionsHelper;
 import ui.pages.DemoApiTestsOneLaunchPage;
 import ui.pages.DemoDashboardPage;
 import ui.pages.LaunchPage;
@@ -34,26 +35,27 @@ public class UITests extends BaseUITest {
     @Test
     void resizeWidget() {
         demoDashboardPage.openDemoDashboardPage();
-        int widgetHeight = demoDashboardPage.getWidgetSize().getHeight();
-        int widgetWidth = demoDashboardPage.getWidgetSize().getWidth();
-        demoDashboardPage.resizeWidget();
-        int widgetHeightAfterResize = demoDashboardPage.getWidgetSize().getHeight();
-        int widgetWidthAfterResize = demoDashboardPage.getWidgetSize().getWidth();
-        demoDashboardPage.refreshPage();
+        int widgetHeight = demoDashboardPage.getWidgetSize(1).getHeight();
+        int widgetWidth = demoDashboardPage.getWidgetSize(1).getWidth();
 
-        assertTrue(widgetHeight < widgetHeightAfterResize);
-        assertTrue(widgetWidth < widgetWidthAfterResize);
+        demoDashboardPage.refreshPage();
+        demoDashboardPage.moveToWidgetResizerElement(1);
+        demoDashboardPage.resizeWidget(1);
+        demoDashboardPage.refreshPage();
+        int widgetHeightAfterResize = demoDashboardPage.getWidgetSize(1).getHeight();
+        int widgetWidthAfterResize = demoDashboardPage.getWidgetSize(1).getWidth();
+
+        assertTrue(widgetHeight > widgetHeightAfterResize);
+        assertTrue(widgetWidth > widgetWidthAfterResize);
     }
 
     @Test
     void otherWidgetsMoveWhileResizing() {
-        List<WebElement> listOfWidgets = demoDashboardPage.openDemoDashboardPage().getAllWidgets();
-        Point locationOfSecondWidget = listOfWidgets.get(1).getLocation();
-        int locationY = locationOfSecondWidget.getY();
-        demoDashboardPage.resizeWidget();
-        List<WebElement> listOfWidgetsAfterResizing = demoDashboardPage.openDemoDashboardPage().getAllWidgets();
-        Point locationOfSecondWidgetAfterResizing = listOfWidgetsAfterResizing.get(1).getLocation();
-        int locationYAfterResizing = locationOfSecondWidgetAfterResizing.getY();
+        demoDashboardPage.openDemoDashboardPage();
+        int locationY = demoDashboardPage.getWidgetLocation(0).getY();
+        demoDashboardPage.refreshPage();
+        demoDashboardPage.resizeWidget(1);
+        int locationYAfterResizing = demoDashboardPage.getWidgetLocation(0).getY();
 
         assertNotEquals(locationY, locationYAfterResizing);
     }
@@ -61,15 +63,33 @@ public class UITests extends BaseUITest {
     @Test
     void contentOfWidgetResizesAsWidget() {
         demoDashboardPage.openDemoDashboardPage();
-        Dimension widgetStatisticsDiagramSize = demoDashboardPage.getWidgetStatisticsDiagramSize();
-        Dimension widgetLegendContainerSize = demoDashboardPage.getWidgetLegendContainerSize();
-        demoDashboardPage.resizeWidget();
-        Dimension widgetStatisticsDiagramSizeAfterResize = demoDashboardPage.getWidgetStatisticsDiagramSize();
-        Dimension widgetLegendContainerSizeAfterResize = demoDashboardPage.getWidgetLegendContainerSize();
 
-        assertTrue(widgetStatisticsDiagramSize.getHeight() < widgetStatisticsDiagramSizeAfterResize.getHeight());
-        assertTrue(widgetStatisticsDiagramSize.getWidth() < widgetStatisticsDiagramSizeAfterResize.getWidth());
-        assertTrue(widgetLegendContainerSize.getWidth() < widgetLegendContainerSizeAfterResize.getWidth());
+        Dimension widgetStatisticsDiagramSize = demoDashboardPage.getWidgetStatisticsDiagramSize(1);
+        Dimension widgetLegendContainerSize = demoDashboardPage.getWidgetLegendContainerSize(1);
+        demoDashboardPage.refreshPage();
+        demoDashboardPage.resizeWidget(1);
+        Dimension widgetStatisticsDiagramSizeAfterResize = demoDashboardPage.getWidgetStatisticsDiagramSize(1);
+        Dimension widgetLegendContainerSizeAfterResize = demoDashboardPage.getWidgetLegendContainerSize(1);
+
+        assertTrue(widgetStatisticsDiagramSize.getHeight() > widgetStatisticsDiagramSizeAfterResize.getHeight());
+        assertTrue(widgetStatisticsDiagramSize.getWidth() > widgetStatisticsDiagramSizeAfterResize.getWidth());
+        assertTrue(widgetLegendContainerSize.getWidth() > widgetLegendContainerSizeAfterResize.getWidth());
+    }
+
+    @Test
+    void replaceWidgetsWIthDragAndDropFunctionality() {
+        demoDashboardPage.openDemoDashboardPage();
+        demoDashboardPage.refreshPage();
+
+        List<WebElement> WidgetsHeadersList = demoDashboardPage.getAllWidgetsHeaderElements();
+        Point firstWidgetLocation = demoDashboardPage.getWidgetLocation(0);
+        Point secondWidgetLocation = demoDashboardPage.getWidgetLocation(1);
+        ActionsHelper.dragAndDrop(WidgetsHeadersList.get(0), WidgetsHeadersList.get(1));
+        Point firstWidgetLocationAfterMoving = demoDashboardPage.getWidgetLocation(0);
+        Point secondWidgetLocationAfterMoving = demoDashboardPage.getWidgetLocation(1);
+
+        assertNotEquals(firstWidgetLocation, firstWidgetLocationAfterMoving);
+        assertNotEquals(secondWidgetLocation, secondWidgetLocationAfterMoving);
     }
 
 }

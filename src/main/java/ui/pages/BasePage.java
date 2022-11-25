@@ -4,18 +4,19 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.driver.DriverManager;
+import ui.driver.wait.CustomFluentWait;
 
 import java.util.List;
 
 public class BasePage {
 
     public WebElement findElement(By by) {
-        DriverManager.getFluentWait().until(ExpectedConditions.presenceOfElementLocated(by));
+        CustomFluentWait.getCustomFluentWait().until(ExpectedConditions.presenceOfElementLocated(by));
         return DriverManager.getDriver().findElement(by);
     }
 
     public List<WebElement> findElements(By by) {
-        DriverManager.getFluentWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
+        CustomFluentWait.getCustomFluentWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
         return DriverManager.getDriver().findElements(by);
     }
 

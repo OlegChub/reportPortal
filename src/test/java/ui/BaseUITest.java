@@ -7,8 +7,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.RegisterExtension;
-import ui.driver.DriverManager;
 import ui.ScreenshotService.ScreenshotWatcher;
+import ui.driver.DriverManager;
+import ui.driver.wait.CustomFluentWait;
 import ui.pages.LoginPage;
 
 public class BaseUITest {
@@ -17,6 +18,7 @@ public class BaseUITest {
     @BeforeAll
     public static void setupDriver() {
         DriverManager.setupDriver();
+        CustomFluentWait.setCustomFluentWait();
         LOGGER.info("Opening login page and login ...");
         var loginPage = new LoginPage();
         loginPage.openLoginPage().enterCredentials().clickLoginButton();
