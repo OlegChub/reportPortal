@@ -1,0 +1,21 @@
+{
+  "filterIds": [
+    "1"
+  ],
+  "name": "${name}",
+  "description": "${description}",
+  "share": true,
+  "contentParameters": {
+    "widgetOptions": {
+      "latest": false
+    },
+    "itemsCount": "10"
+  },
+  "filters": [
+    {
+      "name": "DEMO_FILTER",
+      "value": "1"
+    }
+  ],
+  "widgetType": "uniqueBugTable"
+}

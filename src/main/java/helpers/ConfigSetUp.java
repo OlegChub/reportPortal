@@ -13,4 +13,15 @@ public class ConfigSetUp {
         return config.host();
     }
 
+    public static String getScheme() {
+        return config.scheme();
+    }
+
+    public static String getLocalhost() {
+        return config.localhost();
+    }
+
+    public static int getPort() {
+        return config.port();
+    }
 }
