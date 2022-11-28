@@ -12,4 +12,5 @@ public interface UserCredentials extends Config {
      String userName();
      String password();
      String authorizationType();
+     String token();
 }
