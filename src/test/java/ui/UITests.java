@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static ui.logger.UILogger.LOGGER;
 
 
 public class UITests extends BaseUITest {
@@ -34,16 +35,18 @@ public class UITests extends BaseUITest {
 
     @Test
     void resizeWidget() {
-        demoDashboardPage.openDemoDashboardPage();
-        int widgetHeight = demoDashboardPage.getWidgetSize(1).getHeight();
-        int widgetWidth = demoDashboardPage.getWidgetSize(1).getWidth();
+        LOGGER.info("Preparing test data ...");
+        widgetId1 = apiSteps.createAndAddWidget(widget);
+        widgetId2 = apiSteps.createAndAddWidget(widget);
+        LOGGER.info("Test data successfully prepared");
 
+        demoDashboardPage.openDemoDashboardPage();
+        int widgetHeight = demoDashboardPage.getWidgetSize(0).getHeight();
+        int widgetWidth = demoDashboardPage.getWidgetSize(0).getWidth();
+        demoDashboardPage.resizeWidget(0);
         demoDashboardPage.refreshPage();
-        demoDashboardPage.moveToWidgetResizerElement(1);
-        demoDashboardPage.resizeWidget(1);
-        demoDashboardPage.refreshPage();
-        int widgetHeightAfterResize = demoDashboardPage.getWidgetSize(1).getHeight();
-        int widgetWidthAfterResize = demoDashboardPage.getWidgetSize(1).getWidth();
+        int widgetHeightAfterResize = demoDashboardPage.getWidgetSize(0).getHeight();
+        int widgetWidthAfterResize = demoDashboardPage.getWidgetSize(0).getWidth();
 
         assertTrue(widgetHeight > widgetHeightAfterResize);
         assertTrue(widgetWidth > widgetWidthAfterResize);
@@ -51,6 +54,11 @@ public class UITests extends BaseUITest {
 
     @Test
     void otherWidgetsMoveWhileResizing() {
+        LOGGER.info("Preparing test data ...");
+        widgetId1 = apiSteps.createAndAddWidget(widget);
+        widgetId2 = apiSteps.createAndAddWidget(widget);
+        LOGGER.info("Test data successfully prepared");
+
         demoDashboardPage.openDemoDashboardPage();
         int locationY = demoDashboardPage.getWidgetLocation(0).getY();
         demoDashboardPage.refreshPage();
@@ -62,11 +70,15 @@ public class UITests extends BaseUITest {
 
     @Test
     void contentOfWidgetResizesAsWidget() {
+        LOGGER.info("Preparing test data ...");
+        widgetId1 = apiSteps.createAndAddWidget(widget);
+        widgetId2 = apiSteps.createAndAddWidget(widget);
+        LOGGER.info("Test data successfully prepared");
+
         demoDashboardPage.openDemoDashboardPage();
 
         Dimension widgetStatisticsDiagramSize = demoDashboardPage.getWidgetStatisticsDiagramSize(1);
         Dimension widgetLegendContainerSize = demoDashboardPage.getWidgetLegendContainerSize(1);
-        demoDashboardPage.refreshPage();
         demoDashboardPage.resizeWidget(1);
         Dimension widgetStatisticsDiagramSizeAfterResize = demoDashboardPage.getWidgetStatisticsDiagramSize(1);
         Dimension widgetLegendContainerSizeAfterResize = demoDashboardPage.getWidgetLegendContainerSize(1);
@@ -78,8 +90,12 @@ public class UITests extends BaseUITest {
 
     @Test
     void replaceWidgetsWIthDragAndDropFunctionality() {
+        LOGGER.info("Preparing test data ...");
+        widgetId1 = apiSteps.createAndAddWidget(widget);
+        widgetId2 = apiSteps.createAndAddWidget(widget);
+        LOGGER.info("Test data successfully prepared");
+
         demoDashboardPage.openDemoDashboardPage();
-        demoDashboardPage.refreshPage();
 
         List<WebElement> WidgetsHeadersList = demoDashboardPage.getAllWidgetsHeaderElements();
         Point firstWidgetLocation = demoDashboardPage.getWidgetLocation(0);

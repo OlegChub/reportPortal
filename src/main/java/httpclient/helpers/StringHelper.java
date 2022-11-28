@@ -36,8 +36,12 @@ public class StringHelper {
                 result = originalStringAsSB.toString();
             }
         }
-
         return result;
+    }
 
+    static public String replaceSpecificVarWithValue(String varName, int varValue, String jsonFileName) {
+        String varToReplace = String.format("${%s}", varName);
+        String jsonAsString = JSONHelper.convertJSONFileToString(jsonFileName);
+        return jsonAsString.replace(varToReplace, String.valueOf(varValue));
     }
 }

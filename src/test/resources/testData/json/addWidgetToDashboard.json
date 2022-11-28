@@ -1,0 +1,15 @@
+{
+  "addWidget": {
+    "widgetId": "${widgetId}",
+    "widgetName": "",
+    "widgetType": "statisticTrend",
+    "widgetPosition": {
+      "positionX": 0,
+      "positionY": 0
+    },
+    "widgetSize": {
+      "width": 5,
+      "height": 5
+    }
+  }
+}
