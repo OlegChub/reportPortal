@@ -1,10 +1,10 @@
-package ui.ScreenshotService;
+package ui.screenshotService;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestWatcher;
 import ui.driver.DriverManager;
 
-import static ui.ScreenshotService.ScreenshotHelper.captureScreenshot;
+import static ui.screenshotService.ScreenshotHelper.captureScreenshot;
 
 
 public class ScreenshotWatcher implements TestWatcher {

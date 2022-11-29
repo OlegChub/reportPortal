@@ -10,7 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.RegisterExtension;
-import ui.ScreenshotService.ScreenshotWatcher;
+import ui.screenshotService.ScreenshotWatcher;
 import ui.api.ApiSteps;
 import ui.driver.DriverManager;
 import ui.driver.wait.CustomFluentWait;
