@@ -9,8 +9,8 @@ import ui.driver.DriverManager;
 
 import java.util.List;
 
+import static ui.constants.Constants.HOME_URL;
 import static ui.helpers.ActionsHelper.resizeSquare;
-import static ui.pages.HomePage.HOME_URL;
 
 public class DemoDashboardPage extends BasePage {
     private static final String DEMO_DASHBOARD_PAGE_URL = HOME_URL + String.format("ui/#superadmin_personal/dashboard/%s", Constants.DASHBOARD_ID);

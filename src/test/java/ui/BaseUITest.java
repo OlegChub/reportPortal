@@ -26,15 +26,13 @@ public class BaseUITest {
     protected static int widgetId1;
     protected static int widgetId2;
 
-
     @BeforeAll
     public static void setupDriver() throws FailedToLoginException {
         userLogin.login();
         DriverManager.setupDriver();
         CustomFluentWait.setCustomFluentWait();
         LOGGER.info("Opening login page and login ...");
-        var loginPage = new LoginPage();
-        loginPage.openLoginPage().enterCredentials().clickLoginButton();
+        new LoginPage().openLoginPage().enterCredentials().clickLoginButton();
         LOGGER.info("Successfully login as admin");
     }
 

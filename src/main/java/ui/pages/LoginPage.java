@@ -5,7 +5,7 @@ import ui.driver.DriverManager;
 
 import static helpers.UserAuthConfig.getPassword;
 import static helpers.UserAuthConfig.getUserName;
-import static ui.pages.HomePage.HOME_URL;
+import static ui.constants.Constants.HOME_URL;
 
 public class LoginPage extends BasePage {
     private static final String LOGIN_URL = HOME_URL + "ui/#login";

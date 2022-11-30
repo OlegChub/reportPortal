@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import ui.driver.DriverManager;
 import ui.helpers.JSExecutor;
 
-import static ui.pages.HomePage.HOME_URL;
+import static ui.constants.Constants.HOME_URL;
 
 public class LaunchPage extends BasePage {
     private static final String LAUNCH_PAGE = HOME_URL + "ui/#superadmin_personal/launches/all";

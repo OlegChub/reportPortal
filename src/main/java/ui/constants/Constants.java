@@ -1,8 +1,7 @@
-package ui.pages;
+package ui.constants;
 
 import helpers.ConfigSetUp;
 
-public class HomePage extends BasePage {
+public class Constants {
     public static final String HOME_URL = ConfigSetUp.getHost();
-
 }
