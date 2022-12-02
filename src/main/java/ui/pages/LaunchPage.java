@@ -1,7 +1,7 @@
 package ui.pages;
 
 import org.openqa.selenium.By;
-import ui.driver.DriverManager;
+import ui.driver.DriverProvider;
 import ui.helpers.JSExecutor;
 
 import static ui.constants.Constants.HOME_URL;
@@ -12,7 +12,7 @@ public class LaunchPage extends BasePage {
     private static final By ELEMENT_SCROLL_TO = By.xpath("//a[@href='#superadmin_personal/launches/all/1']");
 
     public LaunchPage openLaunchPage() {
-        DriverManager.getDriver().get(LAUNCH_PAGE);
+        DriverProvider.getDriver().get(LAUNCH_PAGE);
         validatePage(LAUNCH_PAGE_TITLE);
         return this;
     }

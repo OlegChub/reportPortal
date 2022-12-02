@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import ui.driver.DriverManager;
+import ui.driver.DriverProvider;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class DemoDashboardPage extends BasePage {
     private static final By LEGEND_CONTENT_CONTAINER = By.xpath("//div[contains(@class, 'legend__content')]");
 
     public DemoDashboardPage openDemoDashboardPage() {
-        DriverManager.getDriver().get(DEMO_DASHBOARD_PAGE_URL);
+        DriverProvider.getDriver().get(DEMO_DASHBOARD_PAGE_URL);
         validatePage(DEMO_DASHBOARD_PAGE_TITLE);
         return this;
     }

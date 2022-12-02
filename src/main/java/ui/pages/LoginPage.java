@@ -1,7 +1,7 @@
 package ui.pages;
 
 import org.openqa.selenium.By;
-import ui.driver.DriverManager;
+import ui.driver.DriverProvider;
 
 import static helpers.UserAuthConfig.getPassword;
 import static helpers.UserAuthConfig.getUserName;
@@ -14,7 +14,7 @@ public class LoginPage extends BasePage {
     private static final By LOGIN_BUTTON = By.cssSelector("[type='submit']");
 
     public LoginPage openLoginPage() {
-        DriverManager.getDriver().get(LOGIN_URL);
+        DriverProvider.getDriver().get(LOGIN_URL);
         return this;
     }
 

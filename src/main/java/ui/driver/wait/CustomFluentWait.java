@@ -2,7 +2,7 @@ package ui.driver.wait;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.FluentWait;
-import ui.driver.DriverManager;
+import ui.driver.DriverProvider;
 
 import java.time.Duration;
 
@@ -17,7 +17,7 @@ public class CustomFluentWait {
     }
 
     public static FluentWait setCustomFluentWait() {
-        return customFluentWait = new FluentWait(DriverManager.getDriver())
+        return customFluentWait = new FluentWait(DriverProvider.getDriver())
                 .withTimeout(Duration.ofSeconds(FLUENT_WAIT_TIMEOUT))
                 .pollingEvery(Duration.ofSeconds(FLUENT_WAIT_POLLING_TIME))
                 .ignoring(NoSuchElementException.class);

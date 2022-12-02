@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import ui.screenshotService.ScreenshotWatcher;
 import ui.api.ApiSteps;
-import ui.driver.DriverManager;
+import ui.driver.DriverProvider;
 import ui.driver.wait.CustomFluentWait;
 import ui.pages.LoginPage;
 
@@ -29,7 +29,6 @@ public class BaseUITest {
     @BeforeAll
     public static void setupDriver() throws FailedToLoginException {
         userLogin.login();
-        DriverManager.setupDriver();
         CustomFluentWait.setCustomFluentWait();
         LOGGER.info("Opening login page and login ...");
         new LoginPage().openLoginPage().enterCredentials().clickLoginButton();
@@ -59,6 +58,6 @@ public class BaseUITest {
 
     @AfterAll
     public static void quitDriver() {
-        DriverManager.quitDriver();
+        DriverProvider.quitDriver();
     }
 }
