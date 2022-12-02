@@ -3,41 +3,28 @@ package ui.driverConfig;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 
 import java.time.Duration;
 
+import static ui.logger.UILogger.LOGGER;
+
 public class DriverManager {
-    private final static BrowserConfig config = ConfigFactory.create(BrowserConfig.class, System.getProperties());
+    private final static BrowserConfig CONFIG = ConfigFactory.create(BrowserConfig.class, System.getProperties());
     private final static int IMPLICIT_WAIT_TIMEOUT = 5;
     private final static int PAGE_LOAD_TIMEOUT = 60;
 
     private DriverManager() {
     }
 
-    private static void setDriverProperties(WebDriver driver) {
+    public static WebDriver setUpDriver() {
+        LOGGER.info("Driver creation ...");
+        WebDriverManager manager = WebDriverManager.getInstance(CONFIG.browser());
+        manager.setup();
+        WebDriver driver = manager.create();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICIT_WAIT_TIMEOUT));
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(PAGE_LOAD_TIMEOUT));
+        LOGGER.info("Driver was created and properties were set");
+        return driver;
     }
-
-    public static WebDriver setUpDriver() {
-        WebDriver driver;
-        switch (config.browser().toLowerCase()) {
-            case ("chrome"):
-                WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
-                setDriverProperties(driver);
-                return driver;
-            case ("edge"):
-                WebDriverManager.edgedriver().setup();
-                driver = new EdgeDriver();
-                setDriverProperties(driver);
-                return driver;
-            default:
-                throw new IllegalStateException("Unexpected browser name: " + config.browser());
-        }
-    }
-
 }
