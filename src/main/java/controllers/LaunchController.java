@@ -1,7 +1,7 @@
 package controllers;
 
 import api.ApiClient;
-import api.request.GetLaunchInfo;
+import api.request.GetLaunchInfoRequest;
 import helpers.ResponseHandler;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
@@ -20,7 +20,7 @@ public class LaunchController {
     }
 
     public void getExactLaunchInfo(int id) {
-        this.validatableResponse = client.execute(new GetLaunchInfo(id));
+        this.validatableResponse = client.execute(new GetLaunchInfoRequest(id));
         this.response = validatableResponse.extract().response();
     }
 

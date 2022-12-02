@@ -1,7 +1,7 @@
 package helpers;
 
 import api.ApiClient;
-import api.request.PostUserOauth;
+import api.request.PostUserOauthRequest;
 import exeptions.FailedToLoginException;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
@@ -16,7 +16,7 @@ public class UserLogin {
     }
 
     public void login() throws FailedToLoginException {
-        ValidatableResponse validatableResponse = client.execute(new PostUserOauth());
+        ValidatableResponse validatableResponse = client.execute(new PostUserOauthRequest());
         Response response = validatableResponse.extract().response();
         if (response.statusCode() != 200) {
             throw new FailedToLoginException("Failed to login");

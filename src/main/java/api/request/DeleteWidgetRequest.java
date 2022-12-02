@@ -5,8 +5,8 @@ import org.apache.http.client.methods.HttpDelete;
 
 import static helpers.RequestBuilder.buildUrl;
 
-public class DeleteWidget extends BaseRequest {
-    public DeleteWidget(int dashboardId, int widgetId) {
+public class DeleteWidgetRequest extends BaseRequest {
+    public DeleteWidgetRequest(int dashboardId, int widgetId) {
         setMethod(HttpDelete.METHOD_NAME);
         setUrl(buildUrl("/dashboard/{dashboardId}/{widgetId}"));
         getPathParams().put("dashboardId", String.valueOf(dashboardId));

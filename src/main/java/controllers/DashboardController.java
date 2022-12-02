@@ -1,7 +1,7 @@
 package controllers;
 
 import api.ApiClient;
-import api.request.GetDashboard;
+import api.request.GetDashboardRequest;
 import helpers.ResponseHandler;
 import io.restassured.response.ValidatableResponse;
 import models.Content;
@@ -18,7 +18,7 @@ public class DashboardController {
     }
 
     public ValidatableResponse getDashboards() {
-        return client.execute(new GetDashboard());
+        return client.execute(new GetDashboardRequest());
     }
 
     public ArrayList<String> getAllDashboardNames() {
