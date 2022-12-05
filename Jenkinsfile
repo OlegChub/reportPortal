@@ -8,7 +8,7 @@ pipeline {
         stage("Build") {
             steps {
                 echo "Building the app ..."
-                sh mvn test-compile
+                sh 'mvn test-compile'
             }
         }
 
