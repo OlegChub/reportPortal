@@ -1,23 +1,27 @@
 pipeline {
-  agent any
-  stages {
-
-    stage("Build"){
-      steps {
-        echo "Building the app ..."
-      }
+    agent any
+    tools {
+        maven 'Maven'
     }
+    stages {
 
-    stage("Test"){
-      steps {
-        echo "Testing the app ..."
-      }
-    }
+        stage("Build") {
+            steps {
+                echo "Building the app ..."
+                sh mvn test-compile
+            }
+        }
 
-    stage("Deploy"){
-      steps {
-        echo "Deploying the app ..."
-      }
+        stage("Test") {
+            steps {
+                echo "Testing the app ..."
+            }
+        }
+
+        stage("Deploy") {
+            steps {
+                echo "Deploying the app ..."
+            }
+        }
     }
-  }
 }
