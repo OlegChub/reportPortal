@@ -21,6 +21,20 @@ pipeline {
             }
         }
 
+        stage('reports') {
+            steps {
+            script {
+                    allure([
+                            includeProperties: false,
+                            jdk: '',
+                            properties: [],
+                            reportBuildPolicy: 'ALWAYS',
+                            results: [[path: 'target/allure-results']]
+                    ])
+            }
+            }
+        }
+
         stage("Deploy") {
             steps {
                 echo "Deploying the app ..."
