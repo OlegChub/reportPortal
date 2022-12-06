@@ -18,17 +18,17 @@ pipeline {
                     sh "mvn -DuserName=$user -Dpassword=$pass test"
                 }
             }
-            post {
-                    always {
-                        archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
-                        allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
-                    }
-                }
         }
 
         stage("Deploy") {
             steps {
                 echo "Deploying the app ..."
+            }
+        }
+        post {
+            always {
+                archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
+                allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
             }
         }
     }
