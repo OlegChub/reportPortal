@@ -1,19 +1,13 @@
 pipeline {
-    agent
-    any
+    agent any
     tools {
-        maven
-        'Maven'
+        maven 'Maven'
     }
     stages {
-        stage(
-                "Build"
-        ) {
+        stage("Build") {
             steps {
-                echo
-                "Building the app ..."
-                sh
-                'mvn test-compile'
+                echo "Building the app ..."
+                sh 'mvn test-compile'
             }
         }
 
