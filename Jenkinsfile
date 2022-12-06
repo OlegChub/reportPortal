@@ -33,10 +33,7 @@ pipeline {
             allure([
                    includeProperties: false,
                    jdk: '',
-                   properties: [[key: 'allure.tests.management.pattern', value: 'http://tms.company.com/%s'],
-                   [key: 'allure.issues.tracker.pattern', value: 'http://bagtracker.company.com/%s']],
-                   results: [[path: '**/target/allure-results']]
-//                 includeProperties: false, jdk: '', results: [[path: "**/target/allure-results"]]
+                   results: [[path: 'target/allure-results']]
                 ])
         }
     }
