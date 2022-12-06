@@ -26,30 +26,13 @@ pipeline {
                 echo "Deploying the app ..."
             }
         }
-        stage('ALLURE') {
-                    steps {
-                        sh """
-                        ls -a ${WORKSPACE}
-                        """
-                        script {
-                            ws("${WORKSPACE}/target/"){
-                                allure([
-                                    includeProperties: false,
-                                    jdk: '',
-                                    properties: [],
-                                    reportBuildPolicy: 'ALWAYS',
-                                    results: [[path: "allure-results"]]
-                                ])
-                            }
-                        }
-                    }
-                }
+
     }
-//     post{
-//         always{
-//             allure([
-//                 includeProperties: false, jdk: '', results: [[path: "${env.WORKSPACE}/target/allure-results"]]
-//                 ])
-//         }
-//     }
+    post{
+        always{
+            allure([
+                includeProperties: false, jdk: '', results: [[path: "**/target/allure-results"]]
+                ])
+        }
+    }
 }
