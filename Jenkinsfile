@@ -18,13 +18,6 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'reportportal_creds', usernameVariable: 'user', passwordVariable: 'pass')]) {
                 sh "mvn -DuserName=$user -Dpassword=$pass test"
                 }
-                post{
-                        always {
-                                    archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
-                                    allure includeProperties: false, jdk: '',
-                                    results: [[path: 'target/allure-results']]
-                                }
-                    }
             }
         }
 
@@ -35,5 +28,12 @@ pipeline {
         }
 
     }
+    post{
+                            always {
+                                        archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
+                                        allure includeProperties: false, jdk: '',
+                                        results: [[path: 'target/allure-results']]
+                                    }
+                        }
 
 }
