@@ -33,7 +33,7 @@ pipeline {
                         ls -a ${WORKSPACE}
                         """
                         script {
-                            ws("${WORKSPACE}/portal-pipeline_jenkins_ci_setup/target/"){
+                            ws("${WORKSPACE}/target/"){
                                 allure([
                                     includeProperties: false,
                                     jdk: '',
