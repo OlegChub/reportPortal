@@ -17,7 +17,6 @@ pipeline {
                 echo "Testing the app ..."
                 withCredentials([usernamePassword(credentialsId: 'reportportal_creds', usernameVariable: 'user', passwordVariable: 'pass')]) {
                 sh "mvn -DuserName=$user -Dpassword=$pass test"
-                sh "mkdir -p ${env.WORKSPACE}/target/allure-results"
                 }
             }
         }
