@@ -15,7 +15,9 @@ pipeline {
         stage("Test") {
             steps {
                 echo "Testing the app ..."
-                sh 'mvn clean -DuserName=superadmin -Dpassword=erebus test'
+                withCredentials([usernamePassword(credentialsId: 'reportportal_creds', usernameVariable: 'user', passwordVariable: 'pass')]) {
+                sh "mvn -DuserName=$user -Dpassword=$pass test"
+                }
             }
         }
 
