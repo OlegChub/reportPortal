@@ -21,24 +21,17 @@ pipeline {
             }
         }
 
-        stage('reports') {
-            steps {
-            script {
-                    allure([
-                            includeProperties: false,
-                            jdk: '',
-                            properties: [],
-                            reportBuildPolicy: 'ALWAYS',
-                            results: [[path: 'allure-results']]
-                    ])
-            }
-            }
-        }
-
         stage("Deploy") {
             steps {
                 echo "Deploying the app ..."
             }
+        }
+    }
+    post{
+        always{
+            allure([
+                includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
+                ])
         }
     }
 }
