@@ -1,5 +1,6 @@
 package ui.api;
 
+import api.ApiClient;
 import controllers.WidgetController;
 import exeptions.ProceedFailedException;
 import io.restassured.response.ValidatableResponse;
@@ -10,9 +11,16 @@ import org.json.JSONObject;
 import static httpclient.helpers.JSONHelper.getJSONValueByKey;
 
 public class ApiSteps {
+    private ApiClient api;
+    private WidgetController widget;
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public int createAndAddWidget(WidgetController widget) {
+    public ApiSteps() {
+        this.api = new ApiClient();
+        this.widget = new WidgetController(this.api);
+    }
+
+    public int createAndAddWidget() {
         LOGGER.info("Creating widget ...");
         ValidatableResponse response = widget.createWidget();
         if (response.extract().statusCode() == 201) {
@@ -32,5 +40,15 @@ public class ApiSteps {
             throw new ProceedFailedException("Failed to add widget on the dashboard");
         }
         return widgetId;
+    }
+
+    public void deleteWidgetWithId(int widgetId) {
+        LOGGER.info("Removing test data ...");
+        if (widget.deleteWidget(widgetId).extract().statusCode() == 200) {
+            LOGGER.info("Widget successfully removed");
+        } else {
+            LOGGER.error("Failed to remove widget");
+            throw new ProceedFailedException("Failed to remove widget");
+        }
     }
 }

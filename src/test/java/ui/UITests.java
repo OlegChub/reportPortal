@@ -37,17 +37,17 @@ public class UITests extends BaseUITest {
     @Test
     void resizeWidget() {
         LOGGER.info("Preparing test data ...");
-        widgetId1 = apiSteps.createAndAddWidget(widget);
-        widgetId2 = apiSteps.createAndAddWidget(widget);
+        widgetId1 = apiSteps.createAndAddWidget();
+        widgetId2 = apiSteps.createAndAddWidget();
         LOGGER.info("Test data successfully prepared");
 
         demoDashboardPage.openDemoDashboardPage();
-        int widgetHeight = demoDashboardPage.getWidgetSize(0).getHeight();
-        int widgetWidth = demoDashboardPage.getWidgetSize(0).getWidth();
-        demoDashboardPage.resizeWidget(0);
+        int widgetHeight = demoDashboardPage.getSizeOfWidgetWithIndex(0).getHeight();
+        int widgetWidth = demoDashboardPage.getSizeOfWidgetWithIndex(0).getWidth();
+        demoDashboardPage.resizeWidgetWithIndex(0);
         demoDashboardPage.refreshPage();
-        int widgetHeightAfterResize = demoDashboardPage.getWidgetSize(0).getHeight();
-        int widgetWidthAfterResize = demoDashboardPage.getWidgetSize(0).getWidth();
+        int widgetHeightAfterResize = demoDashboardPage.getSizeOfWidgetWithIndex(0).getHeight();
+        int widgetWidthAfterResize = demoDashboardPage.getSizeOfWidgetWithIndex(0).getWidth();
 
         assertTrue(widgetHeight > widgetHeightAfterResize);
         assertTrue(widgetWidth > widgetWidthAfterResize);
@@ -56,15 +56,15 @@ public class UITests extends BaseUITest {
     @Test
     void otherWidgetsMoveWhileResizing() {
         LOGGER.info("Preparing test data ...");
-        widgetId1 = apiSteps.createAndAddWidget(widget);
-        widgetId2 = apiSteps.createAndAddWidget(widget);
+        widgetId1 = apiSteps.createAndAddWidget();
+        widgetId2 = apiSteps.createAndAddWidget();
         LOGGER.info("Test data successfully prepared");
 
         demoDashboardPage.openDemoDashboardPage();
-        int locationY = demoDashboardPage.getWidgetLocation(0).getY();
+        int locationY = demoDashboardPage.getLocationOfWidgetWithIndex(0).getY();
         demoDashboardPage.refreshPage();
-        demoDashboardPage.resizeWidget(1);
-        int locationYAfterResizing = demoDashboardPage.getWidgetLocation(0).getY();
+        demoDashboardPage.resizeWidgetWithIndex(1);
+        int locationYAfterResizing = demoDashboardPage.getLocationOfWidgetWithIndex(0).getY();
 
         assertNotEquals(locationY, locationYAfterResizing);
     }
@@ -72,17 +72,17 @@ public class UITests extends BaseUITest {
     @Test
     void contentOfWidgetResizesAsWidget() {
         LOGGER.info("Preparing test data ...");
-        widgetId1 = apiSteps.createAndAddWidget(widget);
-        widgetId2 = apiSteps.createAndAddWidget(widget);
+        widgetId1 = apiSteps.createAndAddWidget();
+        widgetId2 = apiSteps.createAndAddWidget();
         LOGGER.info("Test data successfully prepared");
 
         demoDashboardPage.openDemoDashboardPage();
 
-        Dimension widgetStatisticsDiagramSize = demoDashboardPage.getWidgetStatisticsDiagramSize(1);
-        Dimension widgetLegendContainerSize = demoDashboardPage.getWidgetLegendContainerSize(1);
-        demoDashboardPage.resizeWidget(1);
-        Dimension widgetStatisticsDiagramSizeAfterResize = demoDashboardPage.getWidgetStatisticsDiagramSize(1);
-        Dimension widgetLegendContainerSizeAfterResize = demoDashboardPage.getWidgetLegendContainerSize(1);
+        Dimension widgetStatisticsDiagramSize = demoDashboardPage.getSizeOfWidgetStatisticsDiagramWithIndex(1);
+        Dimension widgetLegendContainerSize = demoDashboardPage.getSizeOfWidgetLegendContainerWithIndex(1);
+        demoDashboardPage.resizeWidgetWithIndex(1);
+        Dimension widgetStatisticsDiagramSizeAfterResize = demoDashboardPage.getSizeOfWidgetStatisticsDiagramWithIndex(1);
+        Dimension widgetLegendContainerSizeAfterResize = demoDashboardPage.getSizeOfWidgetLegendContainerWithIndex(1);
 
         assertTrue(widgetStatisticsDiagramSize.getHeight() > widgetStatisticsDiagramSizeAfterResize.getHeight());
         assertTrue(widgetStatisticsDiagramSize.getWidth() > widgetStatisticsDiagramSizeAfterResize.getWidth());
@@ -92,18 +92,18 @@ public class UITests extends BaseUITest {
     @Test
     void replaceWidgetsWithDragAndDropFunctionality() {
         LOGGER.info("Preparing test data ...");
-        widgetId1 = apiSteps.createAndAddWidget(widget);
-        widgetId2 = apiSteps.createAndAddWidget(widget);
+        widgetId1 = apiSteps.createAndAddWidget();
+        widgetId2 = apiSteps.createAndAddWidget();
         LOGGER.info("Test data successfully prepared");
 
         demoDashboardPage.openDemoDashboardPage();
 
         List<WebElement> WidgetsHeadersList = demoDashboardPage.getAllWidgetsHeaderElements();
-        Point firstWidgetLocation = demoDashboardPage.getWidgetLocation(0);
-        Point secondWidgetLocation = demoDashboardPage.getWidgetLocation(1);
+        Point firstWidgetLocation = demoDashboardPage.getLocationOfWidgetWithIndex(0);
+        Point secondWidgetLocation = demoDashboardPage.getLocationOfWidgetWithIndex(1);
         ActionsHelper.dragAndDrop(WidgetsHeadersList.get(0), WidgetsHeadersList.get(1));
-        Point firstWidgetLocationAfterMoving = demoDashboardPage.getWidgetLocation(0);
-        Point secondWidgetLocationAfterMoving = demoDashboardPage.getWidgetLocation(1);
+        Point firstWidgetLocationAfterMoving = demoDashboardPage.getLocationOfWidgetWithIndex(0);
+        Point secondWidgetLocationAfterMoving = demoDashboardPage.getLocationOfWidgetWithIndex(1);
 
         assertNotEquals(firstWidgetLocation, firstWidgetLocationAfterMoving);
         assertNotEquals(secondWidgetLocation, secondWidgetLocationAfterMoving);

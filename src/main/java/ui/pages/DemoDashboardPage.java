@@ -20,8 +20,8 @@ public class DemoDashboardPage extends BasePage {
     private static final By WIDGET_RESIZER = By.xpath("//span[contains(@class, 'react-resizable-handle')]");
     private static final By STATISTICS_DIAGRAM = By.cssSelector("[class='c3-event-rects']");
     private static final By LEGEND_CONTENT_CONTAINER = By.xpath("//div[contains(@class, 'legend__content')]");
-    private static final int X_OFFSET=-100;
-    private static final int Y_OFFSET=-100;
+    private static final int X_OFFSET = -100;
+    private static final int Y_OFFSET = -100;
 
     public DemoDashboardPage openDemoDashboardPage() {
         DriverProvider.getDriver().get(DEMO_DASHBOARD_PAGE_URL);
@@ -29,7 +29,7 @@ public class DemoDashboardPage extends BasePage {
         return this;
     }
 
-    public DemoDashboardPage resizeWidget(int widgetIndex) {
+    public DemoDashboardPage resizeWidgetWithIndex(int widgetIndex) {
         resizeSquare(getAllWidgetResizerElements().get(widgetIndex), X_OFFSET, Y_OFFSET);
         return this;
     }
@@ -38,19 +38,19 @@ public class DemoDashboardPage extends BasePage {
         return findElements(WIDGET_RESIZER);
     }
 
-    public Dimension getWidgetSize(int widgetIndex) {
+    public Dimension getSizeOfWidgetWithIndex(int widgetIndex) {
         return getAllWidgets().get(widgetIndex).getSize();
     }
 
-    public Dimension getWidgetLegendContainerSize(int widgetIndex) {
+    public Dimension getSizeOfWidgetLegendContainerWithIndex(int widgetIndex) {
         return findElements(LEGEND_CONTENT_CONTAINER).get(widgetIndex).getSize();
     }
 
-    public Dimension getWidgetStatisticsDiagramSize(int widgetIndex) {
+    public Dimension getSizeOfWidgetStatisticsDiagramWithIndex(int widgetIndex) {
         return findElements(STATISTICS_DIAGRAM).get(widgetIndex).getSize();
     }
 
-    public Point getWidgetLocation(int widgetIndex) {
+    public Point getLocationOfWidgetWithIndex(int widgetIndex) {
         return getAllWidgets().get(widgetIndex).getLocation();
     }
 

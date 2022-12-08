@@ -1,10 +1,8 @@
 package ui;
 
 import api.ApiClient;
-import controllers.WidgetController;
 import exeptions.FailedToLoginException;
 import helpers.UserLogin;
-import org.apache.hc.core5.http.HttpStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterAll;
@@ -23,7 +21,6 @@ public class BaseUITest {
     private static ApiClient api = new ApiClient();
     private static UserLogin userLogin = new UserLogin(api);
     protected static ApiSteps apiSteps = new ApiSteps();
-    protected static WidgetController widget = new WidgetController(api);
     private static final Logger LOGGER = LogManager.getLogger();
 
     @RegisterExtension
@@ -46,8 +43,8 @@ public class BaseUITest {
     public void afterTestActions() {
         if (widgetId1 != 0 || widgetId2 != 0) {
             LOGGER.info("Removing test data ...");
-            widget.deleteWidget(widgetId1).statusCode(HttpStatus.SC_OK);
-            widget.deleteWidget(widgetId2).statusCode(HttpStatus.SC_OK);
+            apiSteps.deleteWidgetWithId(widgetId1);
+            apiSteps.deleteWidgetWithId(widgetId2);
             widgetId1 = 0;
             widgetId2 = 0;
             LOGGER.info("Test data successfully removed");
