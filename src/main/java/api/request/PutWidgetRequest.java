@@ -10,7 +10,7 @@ import static httpclient.helpers.StringHelper.replaceSpecificVarWithValue;
 public class PutWidgetRequest extends BaseRequest {
     public PutWidgetRequest(int widgetId) {
         setMethod(HttpPut.METHOD_NAME);
-        setUrl(buildUrl(String.format("/dashboard/%d/add", Constants.DASHBOARD_ID)));
-        setBody(replaceSpecificVarWithValue("widgetId", widgetId, "addWidgetToDashboard"));
+        setUrl(buildUrl(String.format("/dashboard/%d/add", Constants.DEMO_DASHBOARD_ID)));
+        setBody(replaceSpecificVarWithValue("widgetId", String.valueOf(widgetId), "addWidgetToDashboard"));
     }
 }

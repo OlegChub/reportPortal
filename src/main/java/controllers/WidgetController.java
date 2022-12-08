@@ -24,6 +24,6 @@ public class WidgetController {
     }
 
     public ValidatableResponse deleteWidget(int widgetId) {
-        return client.execute(new DeleteWidgetRequest(Constants.DASHBOARD_ID, widgetId));
+        return client.execute(new DeleteWidgetRequest(Constants.DEMO_DASHBOARD_ID, widgetId));
     }
 }

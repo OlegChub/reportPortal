@@ -6,9 +6,8 @@ import ui.driver.DriverProvider;
 
 import static ui.screenshotService.ScreenshotHelper.captureScreenshot;
 
-
 public class ScreenshotWatcher implements TestWatcher {
-    private final String PATH_TO_SCREENSHOTS_STORAGE = "target/surefire-reports/screenshots";
+    private final static String PATH_TO_SCREENSHOTS_STORAGE = "target/surefire-reports/screenshots";
 
     @Override
     public void testFailed(ExtensionContext context, Throwable throwable) {

@@ -2,16 +2,17 @@ package ui.driverConfig;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.aeonbits.owner.ConfigFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
-
-import static ui.logger.UILogger.LOGGER;
 
 public class DriverManager {
     private final static BrowserConfig CONFIG = ConfigFactory.create(BrowserConfig.class, System.getProperties());
     private final static int IMPLICIT_WAIT_TIMEOUT = 5;
     private final static int PAGE_LOAD_TIMEOUT = 60;
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private DriverManager() {
     }

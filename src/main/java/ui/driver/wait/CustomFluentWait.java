@@ -12,15 +12,17 @@ public class CustomFluentWait {
 
     private static FluentWait customFluentWait;
 
-    public static FluentWait getCustomFluentWait() {
-        return customFluentWait;
+    private CustomFluentWait() {
     }
 
-    public static FluentWait setCustomFluentWait() {
-        return customFluentWait = new FluentWait(DriverProvider.getDriver())
-                .withTimeout(Duration.ofSeconds(FLUENT_WAIT_TIMEOUT))
-                .pollingEvery(Duration.ofSeconds(FLUENT_WAIT_POLLING_TIME))
-                .ignoring(NoSuchElementException.class);
+    public static FluentWait getCustomFluentWait() {
+        if (customFluentWait == null) {
+            customFluentWait = new FluentWait(DriverProvider.getDriver())
+                    .withTimeout(Duration.ofSeconds(FLUENT_WAIT_TIMEOUT))
+                    .pollingEvery(Duration.ofSeconds(FLUENT_WAIT_POLLING_TIME))
+                    .ignoring(NoSuchElementException.class);
+        }
+        return customFluentWait;
     }
 
 }

@@ -13,7 +13,7 @@ public class LaunchPage extends BasePage {
 
     public LaunchPage openLaunchPage() {
         DriverProvider.getDriver().get(LAUNCH_PAGE);
-        validatePage(LAUNCH_PAGE_TITLE);
+        checkElementsExist(LAUNCH_PAGE_TITLE);
         return this;
     }
 

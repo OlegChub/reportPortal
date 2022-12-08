@@ -1,5 +1,5 @@
 package constants;
 
 public class Constants {
-    public static final int DASHBOARD_ID = 46;
+    public static final int DEMO_DASHBOARD_ID = 46;
 }

@@ -20,7 +20,7 @@ public class BasePage {
         return DriverProvider.getDriver().findElements(by);
     }
 
-    public boolean validatePage(By by) {
+    public boolean checkElementsExist(By by) {
         return !findElements(by).isEmpty();
     }
 

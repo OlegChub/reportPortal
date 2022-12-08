@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class ScreenshotHelper {
     public static void captureScreenshot(WebDriver driver, String fileName, String path) {
-        SimpleDateFormat sdf = new SimpleDateFormat("_dd.MM.YY_HH-mm-ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("_dd.MM.yy_HH-mm-ss");
         String date = sdf.format(new Date());
         try {
             new File(path).mkdirs();

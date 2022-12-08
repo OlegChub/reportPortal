@@ -13,22 +13,24 @@ import static ui.constants.Constants.HOME_URL;
 import static ui.helpers.ActionsHelper.resizeSquare;
 
 public class DemoDashboardPage extends BasePage {
-    private static final String DEMO_DASHBOARD_PAGE_URL = HOME_URL + String.format("ui/#superadmin_personal/dashboard/%s", Constants.DASHBOARD_ID);
+    private static final String DEMO_DASHBOARD_PAGE_URL = String.format("%sui/#superadmin_personal/dashboard/%s", HOME_URL, Constants.DEMO_DASHBOARD_ID);
     private static final By DEMO_DASHBOARD_PAGE_TITLE = By.cssSelector("[title='DEMO DASHBOARD']");
     private static final By WIDGET = By.xpath("//div[contains(@class, 'react-grid-item')]");
     private static final By WIDGET_HEADER = By.xpath("//div[contains(@class,'info-block')]");
     private static final By WIDGET_RESIZER = By.xpath("//span[contains(@class, 'react-resizable-handle')]");
     private static final By STATISTICS_DIAGRAM = By.cssSelector("[class='c3-event-rects']");
     private static final By LEGEND_CONTENT_CONTAINER = By.xpath("//div[contains(@class, 'legend__content')]");
+    private static final int X_OFFSET=-100;
+    private static final int Y_OFFSET=-100;
 
     public DemoDashboardPage openDemoDashboardPage() {
         DriverProvider.getDriver().get(DEMO_DASHBOARD_PAGE_URL);
-        validatePage(DEMO_DASHBOARD_PAGE_TITLE);
+        checkElementsExist(DEMO_DASHBOARD_PAGE_TITLE);
         return this;
     }
 
     public DemoDashboardPage resizeWidget(int widgetIndex) {
-        resizeSquare(getAllWidgetResizerElements().get(widgetIndex), -100, -100);
+        resizeSquare(getAllWidgetResizerElements().get(widgetIndex), X_OFFSET, Y_OFFSET);
         return this;
     }
 

@@ -1,5 +1,7 @@
 package ui;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
@@ -13,13 +15,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static ui.logger.UILogger.LOGGER;
-
 
 public class UITests extends BaseUITest {
-    private LaunchPage launchPage = new LaunchPage();
-    private DemoApiTestsOneLaunchPage demoApiTestsOneLaunchPage = new DemoApiTestsOneLaunchPage();
-    private DemoDashboardPage demoDashboardPage = new DemoDashboardPage();
+    private final LaunchPage launchPage = new LaunchPage();
+    private final DemoDashboardPage demoDashboardPage = new DemoDashboardPage();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Test
     void scrollToElementWithJS() {
@@ -28,6 +28,7 @@ public class UITests extends BaseUITest {
 
     @Test
     void clickOnElementWithJS() {
+        DemoApiTestsOneLaunchPage demoApiTestsOneLaunchPage = new DemoApiTestsOneLaunchPage();
         launchPage.openLaunchPage().scrollToDefinedElement();
         launchPage.clickOnDefinedElement();
         assertTrue(demoApiTestsOneLaunchPage.validateDemoApiTestsOneLaunchPage());
@@ -89,7 +90,7 @@ public class UITests extends BaseUITest {
     }
 
     @Test
-    void replaceWidgetsWIthDragAndDropFunctionality() {
+    void replaceWidgetsWithDragAndDropFunctionality() {
         LOGGER.info("Preparing test data ...");
         widgetId1 = apiSteps.createAndAddWidget(widget);
         widgetId2 = apiSteps.createAndAddWidget(widget);
