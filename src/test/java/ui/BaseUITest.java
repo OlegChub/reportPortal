@@ -1,8 +1,6 @@
 package ui;
 
-import api.ApiClient;
 import exeptions.FailedToLoginException;
-import helpers.UserLogin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterAll;
@@ -18,8 +16,6 @@ import ui.screenshotService.ScreenshotWatcher;
 public class BaseUITest {
     protected int widgetId1;
     protected int widgetId2;
-    private static ApiClient api = new ApiClient();
-    private static UserLogin userLogin = new UserLogin(api);
     protected static ApiSteps apiSteps = new ApiSteps();
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -27,8 +23,8 @@ public class BaseUITest {
     ScreenshotWatcher watcher = new ScreenshotWatcher();
 
     @BeforeAll
-    public static void setupDriver() throws FailedToLoginException {
-        userLogin.login();
+    public static void login() throws FailedToLoginException {
+        apiSteps.loginAsUser();
         LOGGER.info("Opening login page and login ...");
         new LoginPage().openLoginPage().enterCredentials().clickLoginButton();
         LOGGER.info("Successfully login as admin");

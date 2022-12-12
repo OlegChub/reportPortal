@@ -2,7 +2,9 @@ package ui.api;
 
 import api.ApiClient;
 import controllers.WidgetController;
+import exeptions.FailedToLoginException;
 import exeptions.ProceedFailedException;
+import helpers.UserLogin;
 import io.restassured.response.ValidatableResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,5 +52,10 @@ public class ApiSteps {
             LOGGER.error("Failed to remove widget");
             throw new ProceedFailedException("Failed to remove widget");
         }
+    }
+
+    public void loginAsUser() throws FailedToLoginException {
+        UserLogin userLogin = new UserLogin(api);
+        userLogin.login();
     }
 }

@@ -25,7 +25,6 @@ public class DemoDashboardPage extends BasePage {
 
     public DemoDashboardPage openDemoDashboardPage() {
         DriverProvider.getDriver().get(DEMO_DASHBOARD_PAGE_URL);
-        checkElementsExist(DEMO_DASHBOARD_PAGE_TITLE);
         return this;
     }
 
