@@ -5,8 +5,8 @@ import org.apache.http.client.methods.HttpPost;
 
 import static helpers.UserAuthConfig.*;
 
-public class PostUserOauth extends BaseRequest {
-    public PostUserOauth() {
+public class PostUserOauthRequest extends BaseRequest {
+    public PostUserOauthRequest() {
         super();
         setMethod(HttpPost.METHOD_NAME);
         setUrl("/uat/sso/oauth/token");

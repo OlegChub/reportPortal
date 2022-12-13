@@ -5,8 +5,8 @@ import org.apache.http.client.methods.HttpGet;
 
 import static helpers.RequestBuilder.buildUrl;
 
-public class GetLaunchInfo extends BaseRequest {
-    public GetLaunchInfo(int launchId) {
+public class GetLaunchInfoRequest extends BaseRequest {
+    public GetLaunchInfoRequest(int launchId) {
         super();
         setMethod(HttpGet.METHOD_NAME);
         setUrl(buildUrl("/launch/{launchId}"));

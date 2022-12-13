@@ -14,6 +14,7 @@
         <aspectj.version>1.8.10</aspectj.version>
         <allure.version>2.19.0</allure.version>
         <cucumber.version>7.8.1</cucumber.version>
+        <junit.version>5.9.0</junit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -21,7 +22,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.9.0</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -133,6 +134,25 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20220924</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.6.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>5.3.1</version>
         </dependency>
 
     </dependencies>

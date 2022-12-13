@@ -1,21 +1,34 @@
 {
-  "filterIds": [
-    "1"
-  ],
-  "name": "${name}",
-  "description": "${description}",
-  "share": true,
+  "widgetType": "statisticTrend",
   "contentParameters": {
+    "contentFields": [
+      "statistics$executions$total",
+      "statistics$executions$passed",
+      "statistics$executions$failed",
+      "statistics$executions$skipped",
+      "statistics$defects$product_bug$pb001",
+      "statistics$defects$automation_bug$ab001",
+      "statistics$defects$system_issue$si001",
+      "statistics$defects$no_defect$nd001",
+      "statistics$defects$to_investigate$ti001"
+    ],
+    "itemsCount": "50",
     "widgetOptions": {
-      "latest": false
-    },
-    "itemsCount": "10"
+      "zoom": false,
+      "timeline": "launch",
+      "viewMode": "area-spline"
+    }
   },
   "filters": [
     {
-      "name": "DEMO_FILTER",
-      "value": "1"
+      "value": "1",
+      "name": "DEMO_FILTER"
     }
   ],
-  "widgetType": "uniqueBugTable"
+  "name": "${name}",
+  "description": "",
+  "share": true,
+  "filterIds": [
+    "1"
+  ]
 }
